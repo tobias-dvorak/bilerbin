@@ -8,6 +8,8 @@
   <meta name="keywords" content="bylinkové sirupy, domácí džemy, kavárna Lanškroun, přírodní produkty, Orlické hory, Bilerbin"/>
   <meta name="author" content="Bilerbin — Helenka &amp; Martin"/>
   <link rel="canonical" href="https://bilerbin.cz/"/>
+  <link rel="icon" type="image/png" href="assets/bilerbin-logo.png"/>
+  <link rel="apple-touch-icon" href="assets/bilerbin-logo.png"/>
 
   <!-- Open Graph -->
   <meta property="og:type" content="website"/>
@@ -90,7 +92,8 @@
       height: 96px;
       background: transparent;
       border-bottom: 1px solid transparent;
-      transition: height .35s ease, background .35s ease, backdrop-filter .35s ease, border-color .35s ease;
+      --bg-trans: .35s;
+      transition: height .35s ease, background var(--bg-trans) ease, backdrop-filter .35s ease, border-color var(--bg-trans) ease;
     }
     .site-header.scrolled {
       height: 64px;
@@ -217,20 +220,21 @@
     /* Hamburger → cross animation */
     .mobile-toggle svg line {
       transition: transform .35s cubic-bezier(.4,0,.2,1), opacity .25s ease;
+      transform-box: fill-box;   /* pivot = each line's own bounding-box centre */
       transform-origin: center;
     }
     .mobile-toggle[aria-expanded="true"] svg line:nth-child(1) {
-      transform: translateY(7px) rotate(45deg);
+      transform: translateY(6px) rotate(45deg);
     }
     .mobile-toggle[aria-expanded="true"] svg line:nth-child(2) {
       opacity: 0;
     }
     .mobile-toggle[aria-expanded="true"] svg line:nth-child(3) {
-      transform: translateY(-7px) rotate(-45deg);
+      transform: translateY(-6px) rotate(-45deg);
     }
 
     /* Header gains background when mobile drawer is open on landing screen */
-    .site-header:not(.scrolled):has(.mobile-drawer.open) {
+    .site-header:not(.scrolled).mobile-open {
       background: var(--cream);
       border-bottom-color: var(--hairline);
     }
@@ -308,7 +312,7 @@
       position: relative; min-height: 100vh;
       background: radial-gradient(ellipse at center, #fffbf2 0%, #f8e7c0 60%);
       display: flex; align-items: center; justify-content: center;
-      padding: 130px 24px 140px;
+      padding: 140px 24px 140px;
       overflow: hidden;
     }
     .hero-tree {
@@ -767,10 +771,10 @@
 
     <!-- Mobile toggle -->
     <button class="mobile-toggle" id="mobile-toggle" aria-label="Otevřít menu" aria-expanded="false" aria-controls="mobile-drawer">
-      <svg width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true">
-        <line x1="0" y1="1"  x2="22" y2="1"  stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="0" y1="8"  x2="22" y2="8"  stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="0" y1="15" x2="22" y2="15" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+        <line x1="1" y1="5"  x2="21" y2="5"  stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="1" y1="11" x2="21" y2="11" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="1" y1="17" x2="21" y2="17" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
     </button>
   </div>
@@ -1103,7 +1107,7 @@ function smoothJump(e, id) {
   const el = document.getElementById(id);
   if (!el) return;
   const offset = parseInt(getComputedStyle(document.getElementById('site-header')).height) || 64;
-  const top = el.getBoundingClientRect().top + window.scrollY - offset + 1;
+  const top = el.getBoundingClientRect().top + window.scrollY - offset + 60;
   window.scrollTo({ top, behavior: 'smooth' });
 }
 
@@ -1181,14 +1185,22 @@ onScroll(); // init
 const mobileToggle = document.getElementById('mobile-toggle');
 const mobileDrawer = document.getElementById('mobile-drawer');
 
-mobileToggle.addEventListener('click', () => {
-  const open = mobileDrawer.classList.toggle('open');
+function setMobileOpen(open) {
+  // Zero out background/border transition for this frame so the colour change is instant
+  header.style.setProperty('--bg-trans', '0s');
+  mobileDrawer.classList.toggle('open', open);
   mobileToggle.setAttribute('aria-expanded', open);
+  header.classList.toggle('mobile-open', open);
+  // Restore the normal transition speed after the paint
+  requestAnimationFrame(() => header.style.removeProperty('--bg-trans'));
+}
+
+mobileToggle.addEventListener('click', () => {
+  setMobileOpen(!mobileDrawer.classList.contains('open'));
 });
 
 function closeMobile() {
-  mobileDrawer.classList.remove('open');
-  mobileToggle.setAttribute('aria-expanded', 'false');
+  setMobileOpen(false);
 }
 
 // ── Menu day switcher ────────────────────────────────────
