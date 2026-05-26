@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Bilerbin — Bylinkové sirupy, džemy &amp; kavárna | Lanškroun</title>
+  <meta name="description" content="Bilerbin vyrábí bylinkové sirupy a džemy z čistého prostředí Orlických hor. Navštivte naši kavárnu v Lanškrouně nebo si objednejte online."/>
+  <meta name="keywords" content="bylinkové sirupy, domácí džemy, kavárna Lanškroun, přírodní produkty, Orlické hory, Bilerbin"/>
+  <meta name="author" content="Bilerbin — Helenka &amp; Martin"/>
+  <link rel="canonical" href="https://bilerbin.cz/"/>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://bilerbin.cz/"/>
+  <meta property="og:title" content="Bilerbin — Bylinkové sirupy, džemy &amp; kavárna"/>
+  <meta property="og:description" content="Přírodní produkty a rodinná kavárna z podhůří Orlických hor. Sirupy, džemy, polední menu."/>
+  <meta property="og:locale" content="cs_CZ"/>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Bilerbin",
+    "description": "Bylinkové sirupy, džemy a malá kavárna v podhůří Orlických hor.",
+    "url": "https://bilerbin.cz",
+    "telephone": "+420608726323",
+    "email": "helena@bilerbin.cz",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Kozinova 71",
+      "postalCode": "563 01",
+      "addressLocality": "Lanškroun",
+      "addressCountry": "CZ"
+    },
+    "openingHours": ["Mo-Fr 09:00-18:00", "Sa 09:00-12:00"]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Italiana&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ── Reset & base ───────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    body {
+      background: #fffbf2;
+      font-family: 'Amiri', serif;
+      color: #000;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #fffbf2; }
+    ::-webkit-scrollbar-thumb { background: rgba(79,46,27,.18); border-radius: 5px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(79,46,27,.30); }
+    ::selection { background: rgba(199,182,137,.45); }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; }
+    button:focus-visible, a:focus-visible {
+      outline: 2px solid rgba(79,46,27,.4);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+    img { display: block; max-width: 100%; }
+
+    /* ── Brand tokens ──────────────────────────────────── */
+    :root {
+      --tan:          rgb(199,182,137);
+      --tan-light:    rgb(206,190,146);
+      --tan-warm:     rgb(231,215,198);
+      --cream:        rgb(255,248,231);
+      --cream-soft:   rgb(255,251,242);
+      --cream-warm:   rgb(252,233,188);
+      --ink:          rgb(0,0,0);
+      --ink2:         rgb(35,41,41);
+      --brown:        rgb(79,46,27);
+      --hairline:     rgba(79,46,27,.20);
+      --hairline-s:   rgba(79,46,27,.12);
+      --card-shadow:  0 2px 4px rgba(79,46,27,.10), 0 8px 24px -12px rgba(79,46,27,.18);
+    }
+
+    /* ── Header ────────────────────────────────────────── */
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 96px;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: height .35s ease, background .35s ease, backdrop-filter .35s ease, border-color .35s ease;
+    }
+    .site-header.scrolled {
+      height: 64px;
+      background: rgba(255,248,231,.88);
+      border-bottom-color: var(--hairline);
+      backdrop-filter: saturate(140%) blur(14px);
+      -webkit-backdrop-filter: saturate(140%) blur(14px);
+    }
+    .header-inner {
+      position: relative;
+      max-width: 1440px; height: 100%; margin: 0 auto;
+      padding: 0 56px;
+    }
+
+    /* Logo anchor */
+    .header-logo {
+      position: absolute;
+      left: 50%; top: 22px;
+      transform: translateX(-50%);
+      display: flex; align-items: center; gap: 12px;
+      transition:
+        left .45s cubic-bezier(.5,.05,.2,1),
+        top .45s cubic-bezier(.5,.05,.2,1),
+        transform .45s cubic-bezier(.5,.05,.2,1);
+      will-change: left, top, transform;
+    }
+    .site-header.scrolled .header-logo {
+      left: 56px; top: 16px;
+      transform: translateX(0);
+    }
+    .logo-ring {
+      width: 105px; height: 105px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--tan);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: width .45s cubic-bezier(.5,.05,.2,1), height .45s cubic-bezier(.5,.05,.2,1), border-width .45s;
+    }
+    .site-header.scrolled .logo-ring {
+      width: 72px; height: 72px;
+      border-width: 2px;
+    }
+    .logo-ring img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Desktop nav */
+    .nav-left, .nav-right {
+      position: absolute; top: 0; height: 100%;
+      display: flex; align-items: center; gap: 28px;
+    }
+    .nav-left  { left: 56px; }
+    .nav-right { right: 56px; transition: opacity .3s ease; }
+
+    /* nav-left replaced by dropdown — hide always */
+    .nav-left { display: none !important; }
+
+    /* nav-right only visible when scrolled */
+    .site-header:not(.scrolled) .nav-right { opacity: 0; pointer-events: none; }
+    .site-header.scrolled .nav-left {
+      opacity: 0; transform: translateX(-12px); pointer-events: none;
+    }
+
+    /* ── Dropdown trigger ──────────────────────────────── */
+    .nav-menu-btn {
+      position: absolute; right: 56px; top: 50%; transform: translateY(-50%);
+      display: flex; align-items: center; gap: 7px;
+      font-family: 'Amiri', serif; font-size: 17px; color: var(--ink);
+      background: transparent; border: 0;
+      padding: 8px 18px; border-radius: 999px;
+      cursor: pointer; transition: background .2s;
+    }
+    .nav-menu-btn:hover { background: rgba(79,46,27,.06); }
+    .nav-menu-btn svg { transition: transform .25s cubic-bezier(.2,.7,.3,1); }
+    .nav-menu-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+    .site-header.scrolled .nav-menu-btn { display: none; }
+
+    /* ── Dropdown panel ────────────────────────────────── */
+    .nav-dropdown {
+      position: absolute; top: calc(100% + 10px); right: 56px;
+      background: var(--cream); border: 1px solid var(--hairline);
+      border-radius: 10px; overflow: hidden; min-width: 210px;
+      box-shadow: 0 8px 32px -8px rgba(79,46,27,.22), 0 2px 8px -2px rgba(79,46,27,.10);
+      opacity: 0; pointer-events: none;
+      transform: translateY(-8px);
+      transition: opacity .22s ease, transform .22s ease;
+      z-index: 200;
+    }
+    .nav-dropdown.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .dropdown-link {
+      display: block; font-family: 'Amiri', serif; font-size: 18px; color: var(--ink);
+      padding: 15px 24px; border-bottom: 1px solid var(--hairline-s);
+      transition: background .15s;
+    }
+    .dropdown-link:last-child { border-bottom: none; }
+    .dropdown-link:hover { background: rgba(79,46,27,.05); }
+
+    .nav-link {
+      font-family: 'Amiri', serif; font-size: 17px;
+      color: var(--ink); text-decoration: none;
+      line-height: 1; position: relative;
+      padding: 6px 2px; display: inline-block;
+      white-space: nowrap;
+    }
+    .nav-link::after {
+      content: ''; position: absolute;
+      left: 0; right: 0; bottom: 0; height: 1px;
+      background: var(--brown);
+      transform: scaleX(0); transform-origin: center;
+      transition: transform .35s cubic-bezier(.2,.7,.3,1);
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after { transform: scaleX(1); }
+
+    /* Mobile toggle */
+    .mobile-toggle {
+      display: none;
+      position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+      width: 36px; height: 36px; padding: 0;
+      background: transparent; border: none;
+      align-items: center; justify-content: center;
+    }
+    .mobile-toggle svg { display: block; }
+
+    /* Mobile drawer */
+    .mobile-drawer {
+      display: none;
+      background: var(--cream);
+      border-top: 1px solid var(--hairline);
+      border-bottom: 1px solid var(--hairline);
+      padding: 12px 24px 20px;
+      flex-direction: column; gap: 4px;
+    }
+    .mobile-drawer.open { display: flex; }
+    .mobile-drawer a {
+      font-family: 'Amiri', serif; font-size: 22px; color: var(--ink);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--hairline-s);
+    }
+
+    /* ── Buttons ───────────────────────────────────────── */
+    .btn {
+      font-family: 'Amiri', serif; font-size: 20px; line-height: 1;
+      padding: 12px 24px;
+      border-radius: 999px; border: 1px solid var(--brown);
+      background: transparent; color: var(--ink);
+      transition: background .2s, color .2s;
+    }
+    .btn:hover { background: var(--brown); color: var(--cream); }
+    .btn-filled { background: var(--brown); color: var(--cream); }
+    .btn-filled:hover { background: var(--ink); }
+    .btn-lg { font-size: 22px; padding: 16px 32px; }
+    .btn-sm { font-size: 16px; padding: 8px 18px; }
+    .btn-ghost-cream {
+      color: var(--cream); border-color: var(--cream);
+    }
+    .btn-ghost-cream:hover { background: var(--cream); color: var(--brown); }
+
+    /* ── Sections shared ───────────────────────────────── */
+    .section-inner { max-width: 1240px; margin: 0 auto; }
+
+    .section-eyebrow {
+      font-family: 'Amiri', serif; font-size: 12px;
+      letter-spacing: .32em; text-transform: uppercase;
+      color: var(--brown); display: block; margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Italiana', serif; font-weight: 400; margin: 0;
+      font-size: clamp(40px, 5.5vw, 64px); line-height: 1;
+      color: var(--ink);
+    }
+    .section-heading { margin-bottom: 56px; }
+
+    .para {
+      font-family: 'Amiri', serif; font-size: 18px; line-height: 1.65;
+      color: var(--ink); margin: 0;
+    }
+
+    /* Image placeholder */
+    .img-slot {
+      position: relative; width: 100%;
+      background: repeating-linear-gradient(45deg, rgba(79,46,27,.05) 0 8px, rgba(79,46,27,.02) 8px 16px);
+      border: 1px solid var(--hairline-s); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .img-slot span {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11px; color: rgba(79,46,27,.55);
+      text-transform: uppercase; letter-spacing: .12em;
+    }
+
+    /* ── Hero ──────────────────────────────────────────── */
+    #hero {
+      position: relative; min-height: 100vh;
+      background: radial-gradient(ellipse at center, #fffbf2 0%, #f8e7c0 60%);
+      display: flex; align-items: center; justify-content: center;
+      padding: 130px 24px 140px;
+    }
+    .hero-tree {
+      position: absolute; left: 50%; bottom: 0;
+      transform: translateX(-50%);
+      height: 100vh; width: auto;
+      pointer-events: none;
+      opacity: .08; mix-blend-mode: multiply;
+    }
+    .hero-tree img { height: 100%; width: auto; max-width: none; }
+    .hero-content {
+      position: relative; text-align: center; max-width: 720px;
+      display: flex; flex-direction: column; align-items: center; gap: 28px;
+    }
+    .hero-est {
+      font-family: 'Amiri', serif; font-size: 13px;
+      letter-spacing: .32em; text-transform: uppercase; color: var(--brown);
+    }
+    .hero-title {
+      font-family: 'Italiana', serif; font-weight: 400; margin: 0; line-height: 1;
+      font-size: clamp(64px, 9vw, 112px);
+      color: var(--ink); letter-spacing: .01em;
+    }
+    .hero-sub {
+      font-family: 'Amiri', serif; font-style: italic;
+      font-size: clamp(22px, 2.4vw, 32px);
+      margin: 0; color: var(--ink); line-height: 1.2;
+    }
+    .hero-cta { display: flex; gap: 14px; margin-top: 16px; flex-wrap: wrap; justify-content: center; }
+    .scroll-cue {
+      position: absolute; bottom: 36px; left: 0; right: 0;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      color: var(--ink); font-family: 'Amiri', serif; font-size: 18px;
+    }
+    .scroll-cue span { position: relative; padding-bottom: 2px; }
+    .scroll-cue span::after {
+      content: ''; position: absolute;
+      left: 0; right: 0; bottom: 0; height: 1px;
+      background: var(--brown);
+      transform: scaleX(0); transform-origin: center;
+      transition: transform .35s cubic-bezier(.2,.7,.3,1);
+    }
+    .scroll-cue:hover span::after { transform: scaleX(1); }
+
+    /* ── O nás ─────────────────────────────────────────── */
+    #o-nas { background: var(--cream-soft); padding: 120px 24px; }
+    .onas-grid {
+      display: grid;
+      grid-template-columns: minmax(280px,1fr) minmax(0,1.4fr);
+      gap: 80px; align-items: start;
+    }
+    .onas-caption {
+      font-family: 'Amiri', serif; font-style: italic; font-size: 18px;
+      color: var(--brown); margin-top: 20px; line-height: 1.5;
+    }
+    .onas-text { display: flex; flex-direction: column; gap: 22px; }
+
+    /* ── Kavárna ───────────────────────────────────────── */
+    #kavarna {
+      background: var(--cream); padding: 120px 24px;
+      border-top: 1px solid var(--hairline-s);
+      border-bottom: 1px solid var(--hairline-s);
+    }
+    .kavarna-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1.4fr) minmax(280px,1fr);
+      gap: 80px; align-items: start;
+    }
+    .kavarna-text { display: flex; flex-direction: column; gap: 22px; }
+    .hours-card {
+      background: var(--cream-soft);
+      border: 1px solid var(--hairline); border-radius: 8px;
+      padding: 36px; box-shadow: var(--card-shadow);
+    }
+    .hours-card h3 {
+      font-family: 'Italiana', serif; font-weight: 400; margin: 0;
+      font-size: 32px; line-height: 1; color: var(--ink);
+    }
+    .hours-table {
+      margin-top: 24px; display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: 32px; row-gap: 12px;
+      font-family: 'Amiri', serif; font-size: 17px; color: var(--ink);
+    }
+    .hours-table .closed { color: var(--brown); }
+    .hours-table .time { text-align: right; }
+    .hours-addr {
+      margin-top: 28px; padding-top: 20px;
+      border-top: 1px solid var(--hairline-s);
+      font-family: 'Amiri', serif; font-size: 15px;
+      line-height: 1.5; color: var(--brown);
+    }
+
+    /* ── Oáza zdraví ───────────────────────────────────── */
+    #oaza { background: var(--cream-soft); padding: 120px 24px; }
+    .oaza-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 56px; align-items: center;
+    }
+    .oaza-text { display: flex; flex-direction: column; gap: 22px; padding-right: 16px; }
+    .menu-card {
+      background: var(--cream);
+      border: 1px solid var(--hairline); border-radius: 8px;
+      box-shadow: var(--card-shadow); padding: 32px 32px 36px;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .menu-card-head {
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 6px;
+    }
+    .menu-week {
+      font-family: 'Amiri', serif; font-size: 12px;
+      letter-spacing: .28em; text-transform: uppercase; color: var(--brown);
+    }
+    .menu-card-head h3 {
+      font-family: 'Italiana', serif; font-weight: 400; margin: 0;
+      font-size: 28px; color: var(--ink);
+    }
+    .day-switcher {
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--hairline-s); border-bottom: 1px solid var(--hairline-s);
+      padding: 12px 4px;
+    }
+    .day-switcher span { font-family: 'Amiri', serif; font-size: 22px; color: var(--ink); }
+    .icon-btn {
+      width: 36px; height: 36px; padding: 0; border-radius: 999px;
+      background: transparent; border: 1px solid var(--hairline-s);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ink); transition: border-color .2s;
+    }
+    .icon-btn:hover { border-color: var(--hairline); }
+    .icon-btn:disabled { opacity: .35; cursor: default; }
+    .menu-items { display: flex; flex-direction: column; gap: 16px; }
+    .menu-item {
+      display: grid; grid-template-columns: auto 1fr;
+      column-gap: 18px; padding-bottom: 14px;
+    }
+    .menu-item:not(:last-child) { border-bottom: 1px dashed var(--hairline-s); }
+    .menu-type {
+      font-family: 'Amiri', serif; font-size: 13px; color: var(--brown);
+      letter-spacing: .18em; text-transform: uppercase;
+      padding-top: 5px; min-width: 64px;
+    }
+    .menu-soup { font-family: 'Amiri', serif; font-size: 14px; color: var(--brown); letter-spacing: .04em; }
+    .menu-main { font-family: 'Amiri', serif; font-size: 19px; color: var(--ink); margin-top: 4px; }
+
+    /* ── Produkty ──────────────────────────────────────── */
+    #produkty {
+      background: var(--cream); padding: 120px 24px;
+      border-top: 1px solid var(--hairline-s);
+    }
+    .produkty-inner { display: flex; flex-direction: column; gap: 96px; }
+    .product-block { display: flex; flex-direction: column; gap: 32px; }
+    .product-block-title {
+      font-family: 'Italiana', serif; font-weight: 400; margin: 0;
+      font-size: clamp(36px, 4.5vw, 52px); line-height: 1; color: var(--ink);
+    }
+    .product-subtitle {
+      font-family: 'Amiri', serif; font-size: 12px; margin-top: 12px;
+      letter-spacing: .28em; text-transform: uppercase; color: var(--brown);
+    }
+    .prod-grid {
+      display: grid; grid-template-columns: minmax(0,1.7fr) minmax(280px,1fr);
+      gap: 24px;
+    }
+    .prod-card {
+      border-radius: 8px; padding: 48px;
+      display: flex; flex-direction: column; gap: 28px; min-height: 360px;
+    }
+    .prod-detail {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 32px; align-items: start;
+    }
+    .prod-name {
+      font-family: 'Amiri', serif; font-weight: 400; margin: 0;
+      font-size: 32px; line-height: 1.2; color: var(--ink);
+    }
+    .prod-desc { font-family: 'Amiri', serif; font-size: 17px; line-height: 1.6; color: var(--ink); margin-top: 14px; }
+    .prod-row {
+      margin-top: auto; display: flex; align-items: center;
+      justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    }
+    .prod-sizes { display: flex; gap: 8px; }
+    .size-btn {
+      font-family: 'Amiri', serif; font-size: 18px;
+      padding: 10px 22px; border-radius: 999px;
+      background: transparent; color: var(--ink);
+      border: 1px solid var(--brown);
+      transition: background .2s, color .2s;
+    }
+    .size-btn.active, .size-btn:hover { background: var(--brown); color: var(--cream); }
+    .prod-price { font-family: 'Amiri', serif; font-size: 24px; color: var(--ink); }
+    .ingredients-card {
+      background: var(--brown); color: var(--cream);
+      border-radius: 8px; padding: 40px;
+      display: flex; flex-direction: column;
+      justify-content: space-between; gap: 24px;
+    }
+    .ingredients-card h4 {
+      font-family: 'Amiri', serif; font-weight: 400; margin: 0;
+      font-size: 28px; line-height: 1.2; color: var(--cream);
+    }
+    .ingredients-card p {
+      font-family: 'Amiri', serif; font-size: 17px; line-height: 1.6;
+      color: var(--cream); margin-top: 14px;
+    }
+    .variants-block {
+      background: rgb(233,212,198); border-radius: 8px; padding: 36px 40px;
+    }
+    .variants-block h4 {
+      font-family: 'Amiri', serif; font-weight: 400; margin: 0;
+      font-size: 26px; color: var(--ink);
+    }
+    .variants-list { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .variant-chip {
+      font-family: 'Amiri', serif; font-size: 15px;
+      padding: 8px 16px; border-radius: 999px;
+      background: rgba(255,251,242,.6); color: var(--ink);
+      border: 1px solid var(--hairline-s);
+      transition: all .2s;
+    }
+    .variant-chip:hover, .variant-chip.active {
+      background: var(--brown); color: var(--cream);
+      border-color: var(--brown);
+    }
+
+    /* Partners */
+    .partners-grid {
+      margin-top: 28px; display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 4px 32px;
+    }
+    .partner-item {
+      font-family: 'Amiri', serif; font-size: 17px; color: var(--ink);
+      padding: 14px 0; border-bottom: 1px solid var(--hairline-s);
+    }
+
+    /* ── Footer ────────────────────────────────────────── */
+    #kontakt {
+      position: relative; background: var(--cream);
+      border-top: 1px solid var(--hairline);
+      padding: 96px 24px 48px; overflow: hidden;
+    }
+    .footer-deco-lg {
+      position: absolute; left: -160px; top: -160px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: rgb(226,197,172); filter: blur(2px); opacity: .5;
+      pointer-events: none;
+    }
+    .footer-deco-sm {
+      position: absolute; left: -60px; top: -60px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: var(--tan); opacity: .5; pointer-events: none;
+    }
+    .footer-grid {
+      position: relative; display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 56px; align-items: start;
+    }
+    .footer-brand { display: flex; align-items: center; gap: 14px; }
+    .footer-logo-ring {
+      width: 68px; height: 68px; border-radius: 50%;
+      background: #fff; border: 2.5px solid var(--tan);
+      overflow: hidden; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .footer-logo-ring img { width: 100%; height: 100%; object-fit: cover; }
+    .footer-brand-name {
+      font-family: 'Italiana', serif; font-size: 32px; letter-spacing: .06em;
+    }
+    .footer-tagline {
+      font-family: 'Amiri', serif; font-style: italic;
+      font-size: 17px; line-height: 1.6; color: var(--brown);
+      margin-top: 20px; max-width: 360px;
+    }
+    .footer-head {
+      font-family: 'Amiri', serif; font-size: 11px;
+      letter-spacing: .28em; text-transform: uppercase;
+      color: var(--brown); margin-bottom: 10px; display: block;
+    }
+    .footer-body {
+      font-family: 'Amiri', serif; font-size: 16px;
+      line-height: 1.6; color: var(--ink2);
+    }
+    .footer-link {
+      color: var(--ink2); border-bottom: 1px solid var(--hairline-s);
+    }
+    .social-list { display: flex; gap: 14px; margin-top: 12px; }
+    .social-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--hairline);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Amiri', serif; font-size: 12px; letter-spacing: .08em;
+      color: var(--ink2); text-decoration: none;
+    }
+    .footer-bottom {
+      position: relative; margin-top: 72px; padding-top: 24px;
+      border-top: 1px solid var(--hairline-s);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-copy {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      letter-spacing: .08em; color: var(--ink2); opacity: .6;
+    }
+
+    /* ── Responsive ────────────────────────────────────── */
+    @media (max-width: 1080px) {
+      .header-inner { padding: 0 32px !important; }
+      .nav-left  { left: 32px !important; gap: 22px !important; }
+      .nav-right { right: 32px !important; gap: 22px !important; }
+      .site-header.scrolled .header-logo { left: 32px; }
+    }
+    @media (max-width: 880px) {
+      .nav-left { display: none !important; }
+      .onas-grid, .kavarna-grid, .oaza-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+      .partners-grid { grid-template-columns: 1fr !important; }
+      .footer-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+      .oaza-text { padding-right: 0; }
+    }
+    @media (max-width: 760px) {
+      .header-inner { padding: 0 20px !important; }
+      .nav-left, .nav-right { display: none !important; }
+      .mobile-toggle { display: flex !important; }
+      .nav-menu-btn, .nav-dropdown { display: none !important; }
+      .site-header.scrolled .header-logo { left: 20px; }
+    }
+    @media (max-width: 880px) {
+      .prod-grid { grid-template-columns: 1fr !important; }
+      /* prod-detail keeps image next to text on tablet */
+      .prod-row { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 640px) {
+      /* stack image below text on mobile */
+      .prod-detail { grid-template-columns: 1fr !important; }
+      /* image slot goes full-width when stacked */
+      .prod-detail .img-slot { width: 100% !important; height: 200px !important; }
+    }
+
+    /* ── Scroll reveal ─────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .75s cubic-bezier(.22,1,.36,1),
+                  transform .75s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transform: none; transition: opacity .4s ease; }
+    }
+
+    /* ── Hero entrance ─────────────────────────────────── */
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .hero-est   { animation: heroFadeUp .85s cubic-bezier(.22,1,.36,1) .10s both; }
+    .hero-title { animation: heroFadeUp .90s cubic-bezier(.22,1,.36,1) .22s both; }
+    .hero-sub   { animation: heroFadeUp .85s cubic-bezier(.22,1,.36,1) .38s both; }
+    .hero-cta   { animation: heroFadeUp .85s cubic-bezier(.22,1,.36,1) .52s both; }
+    .scroll-cue { animation: heroFadeUp .85s cubic-bezier(.22,1,.36,1) .68s both; }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-est, .hero-title, .hero-sub, .hero-cta, .scroll-cue {
+        animation: none;
+      }
+    }
+
+    /* ── Header entrance (after hero finishes) ─────────────
+       Uses the individual `translate` property so it composes
+       independently of the logo's centering `transform`.      */
+    @keyframes headerSlideIn {
+      from { opacity: 0; translate: 0 -28px; }
+      to   { opacity: 1; translate: 0 0; }
+    }
+    /* scroll-cue ends at 0.68s + 0.85s = 1.53s → start here */
+    .header-logo  { animation: headerSlideIn .6s cubic-bezier(.22,1,.36,1) 1.2s both; }
+    .nav-menu-btn { animation: headerSlideIn .6s cubic-bezier(.22,1,.36,1) 1.3s both; }
+    @media (prefers-reduced-motion: reduce) {
+      .header-logo, .nav-menu-btn { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════ -->
+<header class="site-header" id="site-header" role="banner">
+  <div class="header-inner">
+
+    <!-- Logo -->
+    <a href="#hero" class="header-logo" aria-label="Bilerbin — domů" onclick="smoothJump(event,'hero')">
+      <div class="logo-ring">
+        <img src="assets/bilerbin-logo.png" alt="Bilerbin logo" width="86" height="86"/>
+      </div>
+    </a>
+
+    <!-- Left nav (landing only) -->
+    <nav class="nav-left" aria-label="Hlavní navigace levá">
+      <a href="#o-nas"   class="nav-link" onclick="smoothJump(event,'o-nas')">O nás</a>
+      <a href="#kavarna" class="nav-link" onclick="smoothJump(event,'kavarna')">Kavárna</a>
+    </nav>
+
+    <!-- Right nav -->
+    <nav class="nav-right" id="nav-right" aria-label="Hlavní navigace pravá">
+      <a href="#oaza"     class="nav-link" onclick="smoothJump(event,'oaza')">Oáza zdraví</a>
+      <a href="#produkty" class="nav-link" onclick="smoothJump(event,'produkty')">Produkty</a>
+      <a href="#kontakt"  class="nav-link" onclick="smoothJump(event,'kontakt')">Kontakt</a>
+    </nav>
+
+    <!-- Dropdown trigger (desktop, landing only) -->
+    <button class="nav-menu-btn" id="nav-menu-btn" aria-expanded="false" aria-haspopup="true" aria-label="Otevřít navigaci">
+      Menu
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M5 9l7 7 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <!-- Dropdown panel -->
+    <nav class="nav-dropdown" id="nav-dropdown" aria-label="Navigační menu">
+      <a href="#o-nas"    class="dropdown-link" onclick="smoothJump(event,'o-nas');closeDropdown()">O nás</a>
+      <a href="#kavarna"  class="dropdown-link" onclick="smoothJump(event,'kavarna');closeDropdown()">Kavárna</a>
+      <a href="#oaza"     class="dropdown-link" onclick="smoothJump(event,'oaza');closeDropdown()">Oáza zdraví</a>
+      <a href="#produkty" class="dropdown-link" onclick="smoothJump(event,'produkty');closeDropdown()">Produkty</a>
+      <a href="#kontakt"  class="dropdown-link" onclick="smoothJump(event,'kontakt');closeDropdown()">Kontakt</a>
+    </nav>
+
+    <!-- Mobile toggle -->
+    <button class="mobile-toggle" id="mobile-toggle" aria-label="Otevřít menu" aria-expanded="false" aria-controls="mobile-drawer">
+      <svg width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true">
+        <line x1="0" y1="1"  x2="22" y2="1"  stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="0" y1="8"  x2="22" y2="8"  stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="0" y1="15" x2="22" y2="15" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div class="mobile-drawer" id="mobile-drawer" role="navigation" aria-label="Mobilní navigace">
+    <a href="#o-nas"    onclick="smoothJump(event,'o-nas');closeMobile()">O nás</a>
+    <a href="#kavarna"  onclick="smoothJump(event,'kavarna');closeMobile()">Kavárna</a>
+    <a href="#oaza"     onclick="smoothJump(event,'oaza');closeMobile()">Oáza zdraví</a>
+    <a href="#produkty" onclick="smoothJump(event,'produkty');closeMobile()">Produkty</a>
+    <a href="#kontakt"  onclick="smoothJump(event,'kontakt');closeMobile()">Kontakt</a>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     MAIN
+════════════════════════════════════════════ -->
+<main>
+
+  <!-- HERO -->
+  <section id="hero" aria-labelledby="hero-title">
+    <div class="hero-tree" aria-hidden="true">
+      <img src="assets/hero-tree.png" alt="" width="1418" height="1314" loading="eager"/>
+    </div>
+    <div class="hero-content">
+      <span class="hero-est">Domácí produkty z přírody Orlických hor</span>
+      <h1 class="hero-title" id="hero-title">Bilerbin</h1>
+      <p class="hero-sub">Přírodní produkty&ensp;|&ensp;Rodinná kavárna</p>
+      <div class="hero-cta">
+        <button class="btn btn-filled btn-lg" onclick="smoothJump(null,'produkty')">Zobrazit produkty</button>
+        <button class="btn btn-lg" onclick="smoothJump(null,'kavarna')">Navštivte kavárnu</button>
+      </div>
+    </div>
+    <a href="#o-nas" class="scroll-cue" onclick="smoothJump(event,'o-nas')" aria-label="Přejít níže">
+      <span>Více o nás</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M5 9l7 7 7-7" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- O NÁS -->
+  <section id="o-nas" aria-labelledby="onas-title">
+    <div class="section-inner" style="padding: 0 24px;">
+      <header class="section-heading">
+        <h2 class="section-title" id="onas-title">O nás</h2>
+      </header>
+      <div class="onas-grid">
+        <div>
+          <div class="img-slot" style="aspect-ratio: 4/5;">
+            <span>rodinné foto · zahrada</span>
+          </div>
+        </div>
+        <div class="onas-text">
+          <p class="para">Vše to začalo již před deseti lety, kdy jsme se po dostudování VŠ rozhodli, že město není nic pro nás, žít chceme někde v přírodě. Během několika let se nám narodily dvě holčičky, našli jsme krásné místo v podhůří Orlických hor a postavili si dřevěný dům.</p>
+          <p class="para">Ač jsme oba chemici, té chemie (a obzvláště v jídle) už nám připadá trochu moc. Snažíme se co nejvíce si vypěstovat, na naší zahradě ale nenajdete žádné přešlechtěné cizokrajné rostliny, umělá hnojiva a chemické postřiky. Uznáváme permakulturní přístup&thinsp;—&thinsp;vzorem nám jsou naše babičky, které ještě žily v souladu s přírodou.</p>
+          <p class="para">Nejdříve bylo vše jen pro nás, recepty jsem postupně upravovala a vylepšovala. Rodina a kamarádi si brzy zvykli, že dárky od nás jsou většinou jedlé. A protože všem moc chutná, rozhodli jsme se zkusit vyrábět jedlé dobroty pro co nejvíce lidí, kteří to vidí stejně jako my a chtějí si pochutnávat na džemech, sirupech a slaných dobrotách bez umělých konzervantů, barviv a aromat.</p>
+          <p class="para" style="color:var(--brown);font-style:italic;">A teď už je to jen na vás. Moc si přejeme aby vám chutnalo a měli jste dobrý pocit, že děláte něco pro své zdraví i naši přírodu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KAVÁRNA -->
+  <section id="kavarna" aria-labelledby="kavarna-title">
+    <div class="section-inner" style="padding: 0 24px;">
+      <header class="section-heading">
+
+        <h2 class="section-title" id="kavarna-title">Kavárna</h2>
+      </header>
+      <div class="kavarna-grid">
+        <div class="kavarna-text">
+          <p class="para">Mimo výrobu sirupů a marmelád také provozujeme malou kavárnu v centru Lanškrouna. Kromě výborné kávy a bylinkových čajů můžete také ochutnat všechny naše sirupy&thinsp;—&thinsp;jako horké nápoje nebo limonády.</p>
+          <p class="para">To, co vám bude nejvíce chutnat, si pak můžete odnést domů v podobě lahve bylinkového sirupu nebo sklenice marmelády. Každý den pro vás pečeme domácí dezerty, v pondělí pečeme bez lepku, často i bez mléka.</p>
+          <p class="para" style="color:var(--brown);font-style:italic;">Zastavte se v čase, ve spěchu, u nás. Těšíme se.</p>
+          <div style="margin-top:8px;">
+            <div class="img-slot" style="aspect-ratio: 16/9;">
+              <span>interiér kavárny</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hours-card" aria-label="Otevírací doba">
+          <h3>Otevírací doba</h3>
+          <dl class="hours-table">
+            <dt>pondělí</dt>  <dd class="time">9:00 – 18:00</dd>
+            <dt>úterý</dt>    <dd class="time">9:00 – 18:00</dd>
+            <dt>středa</dt>   <dd class="time">9:00 – 18:00</dd>
+            <dt>čtvrtek</dt>  <dd class="time">9:00 – 18:00</dd>
+            <dt>pátek</dt>    <dd class="time">9:00 – 18:00</dd>
+            <dt>sobota</dt>   <dd class="time">9:00 – 12:00</dd>
+            <dt>neděle</dt>   <dd class="time closed">zavřeno</dd>
+          </dl>
+          <address class="hours-addr">
+            Kozinova 71, 563 01 Lanškroun<br/>
+            Pod náměstím.
+          </address>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- OÁZA ZDRAVÍ -->
+  <section id="oaza" aria-labelledby="oaza-title">
+    <div class="section-inner" style="padding: 0 24px;">
+      <header class="section-heading">
+
+        <h2 class="section-title" id="oaza-title">Oáza zdraví</h2>
+      </header>
+      <div class="oaza-grid">
+        <div class="oaza-text">
+          <p class="para">Každý všední den vaříme čerstvé polední menu z lokálních surovin. Polévka a výběr ze dvou hlavních jídel&thinsp;—&thinsp;jedno tradiční, jedno bezmasé.</p>
+          <p class="para">Jídlo si prosím přijďte sníst či vyzvednout mezi 11 a 14 hodinou. Platba se provádí na místě v daný den.</p>
+          <div style="margin-top:12px;">
+            <button class="btn btn-filled">Objednat</button>
+          </div>
+        </div>
+
+        <div class="menu-card" role="region" aria-label="Týdenní menu">
+          <div class="menu-card-head">
+            <h3>Menu</h3>
+            <span class="menu-week">Platné v týdnu 23.&thinsp;3. – 27.&thinsp;3.</span>
+          </div>
+          <div class="day-switcher">
+            <button class="icon-btn" id="prev-day" aria-label="Předchozí den" disabled>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M15 5l-7 7 7 7" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <span id="day-name">Pondělí 23. 3.</span>
+            <button class="icon-btn" id="next-day" aria-label="Následující den">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M9 5l7 7-7 7" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="menu-items" id="menu-items" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUKTY -->
+  <section id="produkty" aria-labelledby="produkty-title">
+    <div class="section-inner produkty-inner" style="padding: 0 24px;">
+      <header class="section-heading">
+
+        <h2 class="section-title" id="produkty-title">Produkty</h2>
+      </header>
+
+      <p class="para" style="max-width:800px;margin-top:-40px;">
+        Máte chuť na něco dobrého? Bylinkové sirupy a marmelády si můžete objednat přes web formulář. Děkujeme za vaši podporu a přízeň&thinsp;—&thinsp;Helenka a Martin z Bilerbinu.
+      </p>
+
+      <!-- Sirupy -->
+      <article class="product-block" aria-labelledby="sirupy-title">
+        <div>
+          <h3 class="product-block-title" id="sirupy-title">Sirupy</h3>
+          <p class="para" style="margin-top:18px;max-width:820px;">Naše sirupy obsahují jen čerstvé bylinky, pěstované v čistém prostředí Orlických hor, cukr (řepný, třtinový) nebo med a citrónovou šťávu.</p>
+        </div>
+        <div class="prod-grid">
+          <div class="prod-card" style="background:var(--tan-warm);">
+            <div class="prod-detail">
+              <div>
+                <h4 class="prod-name">Kořeněný dýňový sirup</h4>
+                <p class="prod-desc">Podzimně laděný sirup z domácích dýní, s příměsí citronu a koření pro výraznou chuť. Ideální volba pro přípravu osvěžujících limonád, pumpkin spice latte, nebo jen jako mlsání na lžičku.</p>
+              </div>
+              <div class="img-slot" style="width:200px;height:220px;flex-shrink:0;">
+                <span>sirup · láhev</span>
+              </div>
+            </div>
+            <div class="prod-row">
+              <div class="prod-sizes" id="sirup-sizes" role="group" aria-label="Velikost">
+                <button class="size-btn active" data-group="sirup" data-size="0,5 l">0,5 l</button>
+                <button class="size-btn"        data-group="sirup" data-size="1 l">1 l</button>
+              </div>
+              <div class="prod-price">135,- Kč</div>
+            </div>
+          </div>
+          <div class="ingredients-card">
+            <div>
+              <h4>Složení</h4>
+              <p>Dýňový rozvar, třtinový cukr, citronová šťáva, hřebíček, badyán, skořice, muškátový oříšek.</p>
+            </div>
+            <button class="btn btn-ghost-cream btn-sm">Objednat</button>
+          </div>
+        </div>
+        <div class="variants-block">
+          <h4>Další varianty</h4>
+          <div class="variants-list" id="sirup-variants" role="group" aria-label="Varianty sirupů"></div>
+        </div>
+      </article>
+
+      <!-- Džemy -->
+      <article class="product-block" aria-labelledby="dzemy-title">
+        <div>
+          <h3 class="product-block-title" id="dzemy-title">Marmelády</h3>
+          <p class="para" style="margin-top:18px;max-width:820px;">V džemech najdete nejméně 60 % ovoce (často i více), cukr, citrónovou šťávu a pokud je potřeba, čistý jablečný nebo citrusový pektin. Všechno ovoce pochází z lokálních zdrojů, rádi podporujeme farmáře v našem okolí. Nabízíme v balení 220 g.</p>
+        </div>
+        <div class="prod-grid">
+          <div class="prod-card" style="background:rgb(248,231,192);">
+            <div class="prod-detail">
+              <div>
+                <h4 class="prod-name">Aróniový extra džem s červeným vínem</h4>
+                <p class="prod-desc">Aronie z vlastní zahrady, červené víno a špetka skořice. Hluboce ovocný džem k snídani na chleba, k pečenému sýru nebo do palačinek.</p>
+              </div>
+              <div class="img-slot" style="width:200px;height:220px;flex-shrink:0;">
+                <span>džem · sklenice</span>
+              </div>
+            </div>
+            <div class="prod-row">
+              <div class="prod-sizes" role="group" aria-label="Velikost">
+                <button class="size-btn active" data-group="dzem" data-size="220 g">220 g</button>
+              </div>
+              <div class="prod-price">110,- Kč</div>
+            </div>
+          </div>
+          <div class="ingredients-card">
+            <div>
+              <h4>Složení</h4>
+              <p>Aronie 65 %, třtinový cukr, červené víno, citronová šťáva, jablečný pektin, skořice.</p>
+            </div>
+            <button class="btn btn-ghost-cream btn-sm">Objednat</button>
+          </div>
+        </div>
+        <div class="variants-block">
+          <h4>Další varianty</h4>
+          <div class="variants-list" id="dzem-variants" role="group" aria-label="Varianty džemů"></div>
+        </div>
+      </article>
+
+      <!-- Kde nás najdete -->
+      <div>
+        <h3 style="font-family:'Italiana',serif;font-weight:400;margin:0;font-size:clamp(28px,3.4vw,40px);color:var(--ink);">Kde nás najdete</h3>
+        <p class="para" style="margin-top:16px;max-width:820px;">Níže je kompletní seznam podniků, ve kterých můžete zakoupit naše domácí produkty.</p>
+        <ul class="partners-grid" style="list-style:none;margin:0;padding:0;" aria-label="Seznam partnerů">
+          <li class="partner-item">Kavárna Bilerbin · Lanškroun</li>
+          <li class="partner-item">Šálek štěstí · Svitavy</li>
+          <li class="partner-item">Pekařství Jan Mašek · Smržovka</li>
+          <li class="partner-item">Cesta bez obalu · Jablonec n. N.</li>
+          <li class="partner-item">Nad věcí · Poniklá</li>
+          <li class="partner-item">Zdravá výživa JuTaK · Semily</li>
+          <li class="partner-item">Nejen kavárna · Liberec</li>
+          <li class="partner-item">Kavárna Na cestě · Jablonec n. N.</li>
+          <li class="partner-item">Spižírna · Liberec</li>
+          <li class="partner-item">Studio ArtTeta · Liberec</li>
+          <li class="partner-item">Fabio produkt · Turnov</li>
+          <li class="partner-item">Cukrárna na nám. Míru · Jablonné v Podj.</li>
+          <li class="partner-item">Cukrárna U kostela · Hejnice</li>
+          <li class="partner-item">Cukrárna a Kavárna Vločka · Frýdlant</li>
+          <li class="partner-item">Infocentrum Riedlova vila · Desná</li>
+          <li class="partner-item">Mléčný bar Naproti · Ostrava</li>
+          <li class="partner-item">Farma U Stromovouse · Světlá Hora</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER / KONTAKT -->
+<footer id="kontakt" role="contentinfo">
+  <div class="footer-deco-lg" aria-hidden="true"></div>
+  <div class="footer-deco-sm" aria-hidden="true"></div>
+  <div class="section-inner" style="padding: 0 24px;">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <div class="footer-logo-ring">
+            <img src="assets/bilerbin-logo.png" alt="Bilerbin" width="53" height="53" loading="lazy"/>
+          </div>
+          <span class="footer-brand-name">Bilerbin</span>
+        </div>
+        <p class="footer-tagline">Bylinkové sirupy, džemy a malá kavárna v podhůří Orlických hor.</p>
+      </div>
+
+      <div>
+        <span class="footer-head">Adresa kavárny</span>
+        <address class="footer-body" style="font-style:normal;">
+          Kozinova 71<br/>
+          563 01 Lanškroun
+        </address>
+        <span class="footer-head" style="margin-top:28px;">otevírací doba</span>
+        <div class="footer-body">
+          Po–Pá 9:00 – 18:00<br/>
+          So 9:00 – 12:00
+        </div>
+      </div>
+
+      <div>
+        <span class="footer-head">Kontakt</span>
+        <div class="footer-body">
+          <b>Mgr. Helena Bilerová, PhD.</b><br>
+          <a href="tel:+420608726323" class="footer-link">+420 608 726 323</a><br/>
+          <a href="mailto:helena@bilerbin.cz" class="footer-link">helena@bilerbin.cz</a>
+        </div>
+        <span class="footer-head" style="margin-top:28px;">Sledujte nás</span>
+        <nav class="social-list" aria-label="Sociální sítě">
+          <a href="#" class="social-btn" aria-label="Instagram">IG</a>
+          <a href="#" class="social-btn" aria-label="Facebook">FB</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 — Copyright Bilerbin</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════ -->
+<script>
+// ── Smooth scroll ────────────────────────────────────────
+function smoothJump(e, id) {
+  if (e) e.preventDefault();
+  const el = document.getElementById(id);
+  if (!el) return;
+  const offset = parseInt(getComputedStyle(document.getElementById('site-header')).height) || 64;
+  const top = el.getBoundingClientRect().top + window.scrollY - offset + 1;
+  window.scrollTo({ top, behavior: 'smooth' });
+}
+
+// ── Header scroll behaviour ──────────────────────────────
+const header    = document.getElementById('site-header');
+const navRight  = document.getElementById('nav-right');
+
+// All nav items in order (for scrolled right nav)
+const ALL_NAV = [
+  { href: 'o-nas',    label: 'O nás'        },
+  { href: 'kavarna',  label: 'Kavárna'      },
+  { href: 'oaza',     label: 'Oáza zdraví'  },
+  { href: 'produkty', label: 'Produkty'     },
+  { href: 'kontakt',  label: 'Kontakt'      },
+];
+// Right nav in landing state (last 3 items)
+const LANDING_RIGHT = ALL_NAV.slice(2);
+
+function buildNavRight(items) {
+  navRight.innerHTML = items.map(n =>
+    `<a href="#${n.href}" class="nav-link" onclick="smoothJump(event,'${n.href}')">${n.label}</a>`
+  ).join('');
+  updateActiveLinks();
+}
+
+// ── Dropdown (landing state) ─────────────────────────────
+const navMenuBtn  = document.getElementById('nav-menu-btn');
+const navDropdown = document.getElementById('nav-dropdown');
+
+function closeDropdown() {
+  navDropdown.classList.remove('open');
+  navMenuBtn.setAttribute('aria-expanded', 'false');
+}
+navMenuBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  const open = navDropdown.classList.toggle('open');
+  navMenuBtn.setAttribute('aria-expanded', open);
+});
+document.addEventListener('click', e => {
+  if (!navMenuBtn.contains(e.target) && !navDropdown.contains(e.target)) closeDropdown();
+});
+
+let wasScrolled = false;
+function onScroll() {
+  const scrolled = window.scrollY > 120;
+  if (scrolled !== wasScrolled) {
+    wasScrolled = scrolled;
+    header.classList.toggle('scrolled', scrolled);
+    if (scrolled) closeDropdown();
+    buildNavRight(scrolled ? ALL_NAV : LANDING_RIGHT);
+  }
+  updateActiveLinks();
+}
+
+// ── Scroll spy ───────────────────────────────────────────
+const SECTION_IDS = ['hero','o-nas','kavarna','oaza','produkty','kontakt'];
+
+function updateActiveLinks() {
+  const y = window.scrollY + 130;
+  let cur = SECTION_IDS[0];
+  for (const id of SECTION_IDS) {
+    const el = document.getElementById(id);
+    if (el && el.offsetTop <= y) cur = id;
+  }
+  document.querySelectorAll('.nav-link').forEach(a => {
+    const id = a.getAttribute('href')?.replace('#','');
+    a.classList.toggle('active', id === cur);
+  });
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll(); // init
+
+// ── Mobile menu ──────────────────────────────────────────
+const mobileToggle = document.getElementById('mobile-toggle');
+const mobileDrawer = document.getElementById('mobile-drawer');
+
+mobileToggle.addEventListener('click', () => {
+  const open = mobileDrawer.classList.toggle('open');
+  mobileToggle.setAttribute('aria-expanded', open);
+});
+
+function closeMobile() {
+  mobileDrawer.classList.remove('open');
+  mobileToggle.setAttribute('aria-expanded', 'false');
+}
+
+// ── Menu day switcher ────────────────────────────────────
+const MENU_DAYS = [
+  { name: 'Pondělí 23. 3.', items: [
+    { type: 'Polévka',  name: 'Mrkvová s ďumbírem' },
+    { type: 'Jídlo 1',  name: 'Thajské zelené curry, basmati' },
+    { type: 'Jídlo VS', name: 'Pečená kořenová zelenina, jáhly' },
+  ]},
+  { name: 'Úterý 24. 3.', items: [
+    { type: 'Polévka',  name: 'Cibulačka s hřibovým olejem' },
+    { type: 'Jídlo 1',  name: 'Domácí těstoviny, ricotta, špenát' },
+    { type: 'Jídlo VS', name: 'Tofu se sezamem, jasmínová rýže' },
+  ]},
+  { name: 'Středa 25. 3.', items: [
+    { type: 'Polévka',  name: 'Krémová květáková' },
+    { type: 'Jídlo 1',  name: 'Kuře se smetanovou omáčkou a houskovým knedlíkem' },
+    { type: 'Jídlo VS', name: 'Quinoa s pečenou dýní a fetou' },
+  ]},
+  { name: 'Čtvrtek 26. 3.', items: [
+    { type: 'Polévka',  name: 'Pórková se zlatým česnekem' },
+    { type: 'Jídlo 1',  name: 'Hovězí guláš s domácím chlebem' },
+    { type: 'Jídlo VS', name: 'Cizrnové karí s rýží' },
+  ]},
+  { name: 'Pátek 27. 3.', items: [
+    { type: 'Polévka',  name: 'Rybí vývar s nudlemi' },
+    { type: 'Jídlo 1',  name: 'Pstruh na másle, pečené brambory' },
+    { type: 'Jídlo VS', name: 'Houbové rizoto s parmezánem' },
+  ]},
+];
+
+let dayIdx = 0;
+const prevBtn   = document.getElementById('prev-day');
+const nextBtn   = document.getElementById('next-day');
+const dayName   = document.getElementById('day-name');
+const menuItems = document.getElementById('menu-items');
+
+function renderMenu() {
+  const day = MENU_DAYS[dayIdx];
+  dayName.textContent = day.name;
+  prevBtn.disabled = dayIdx === 0;
+  nextBtn.disabled = dayIdx === MENU_DAYS.length - 1;
+  menuItems.innerHTML = day.items.map(it => `
+    <div class="menu-item">
+      <span class="menu-type">${it.type}</span>
+      <div class="menu-main">${it.name}</div>
+    </div>
+  `).join('');
+}
+
+prevBtn.addEventListener('click', () => { if (dayIdx > 0) { dayIdx--; renderMenu(); } });
+nextBtn.addEventListener('click', () => { if (dayIdx < MENU_DAYS.length - 1) { dayIdx++; renderMenu(); } });
+renderMenu();
+
+// ── Size selector ────────────────────────────────────────
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.size-btn');
+  if (!btn) return;
+  const group = btn.dataset.group;
+  document.querySelectorAll(`.size-btn[data-group="${group}"]`)
+    .forEach(b => b.classList.toggle('active', b === btn));
+});
+
+// ── Variant chips ────────────────────────────────────────
+const SIRUP_VARIANTS = [
+  'Mátový','Bezový','Levandulový','Dýňový kořeněný','Rakytníkový',
+  'Šípkový','Smrkový','Jahodový','Meduňkový','Heřmánkový',
+  'Rybízový','Pampeliškový',
+];
+const DZEM_VARIANTS = [
+  'Jahodový s vanilkou','Meruňkový','Švestkový se skořicí','Aróniový s červ. vínem',
+  'Borůvkový','Hruškový s levandulí','Rebarborový','Brusinkový s pomerančem',
+  'Malinový','Mirabelkový','Fíkový s rumem',
+];
+
+function renderVariants(containerId, variants, defaultActive) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = variants.map((v, i) =>
+    `<button class="variant-chip${i === defaultActive ? ' active' : ''}" type="button">${v}</button>`
+  ).join('');
+}
+renderVariants('sirup-variants', SIRUP_VARIANTS, 3);
+renderVariants('dzem-variants',  DZEM_VARIANTS,  3);
+
+document.querySelectorAll('.variants-list').forEach(list => {
+  list.addEventListener('click', e => {
+    const chip = e.target.closest('.variant-chip');
+    if (!chip) return;
+    list.querySelectorAll('.variant-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+  });
+});
+
+// ── Scroll reveal ────────────────────────────────────────
+(function () {
+  // Each entry is [CSS selector, per-sibling stagger in ms].
+  // Siblings matched by the same selector get an increasing delay so they
+  // cascade in nicely when several are visible at once (e.g. grid columns).
+  const GROUPS = [
+    ['#o-nas   .section-heading',   0  ],
+    ['#o-nas   .onas-grid > *',     110],
+    ['#kavarna .section-heading',   0  ],
+    ['#kavarna .kavarna-grid > *',  110],
+    ['#oaza    .section-heading',   0  ],
+    ['#oaza    .oaza-grid > *',     110],
+    ['#produkty .section-heading',  0  ],
+    ['#produkty .produkty-inner > .para', 0],
+    ['#produkty .product-block',    90 ],
+    ['#produkty .partners-grid',    0  ],
+    ['#kontakt  .footer-grid > *',  100],
+    ['#kontakt  .footer-bottom',    0  ],
+  ];
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    });
+  }, {
+    threshold: 0.08,
+    rootMargin: '0px 0px -48px 0px',
+  });
+
+  GROUPS.forEach(([sel, stagger]) => {
+    document.querySelectorAll(sel).forEach((el, i) => {
+      el.classList.add('reveal');
+      if (stagger && i > 0) el.style.transitionDelay = `${i * stagger}ms`;
+      observer.observe(el);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
