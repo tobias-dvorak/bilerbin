@@ -214,6 +214,26 @@
       align-items: center; justify-content: center;
     }
     .mobile-toggle svg { display: block; }
+    /* Hamburger → cross animation */
+    .mobile-toggle svg line {
+      transition: transform .35s cubic-bezier(.4,0,.2,1), opacity .25s ease;
+      transform-origin: center;
+    }
+    .mobile-toggle[aria-expanded="true"] svg line:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .mobile-toggle[aria-expanded="true"] svg line:nth-child(2) {
+      opacity: 0;
+    }
+    .mobile-toggle[aria-expanded="true"] svg line:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Header gains background when mobile drawer is open on landing screen */
+    .site-header:not(.scrolled):has(.mobile-drawer.open) {
+      background: var(--cream);
+      border-bottom-color: var(--hairline);
+    }
 
     /* Mobile drawer */
     .mobile-drawer {
@@ -230,6 +250,7 @@
       padding: 14px 0;
       border-bottom: 1px solid var(--hairline-s);
     }
+    .mobile-drawer a:last-child { border-bottom: none; }
 
     /* ── Buttons ───────────────────────────────────────── */
     .btn {
@@ -288,6 +309,7 @@
       background: radial-gradient(ellipse at center, #fffbf2 0%, #f8e7c0 60%);
       display: flex; align-items: center; justify-content: center;
       padding: 130px 24px 140px;
+      overflow: hidden;
     }
     .hero-tree {
       position: absolute; left: 50%; bottom: 0;
@@ -579,9 +601,10 @@
       width: 36px; height: 36px; border-radius: 50%;
       border: 1px solid var(--hairline);
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Amiri', serif; font-size: 12px; letter-spacing: .08em;
       color: var(--ink2); text-decoration: none;
+      transition: background .2s, color .2s, border-color .2s;
     }
+    .social-btn:hover { background: var(--brown); color: var(--cream); border-color: var(--brown); }
     .footer-bottom {
       position: relative; margin-top: 72px; padding-top: 24px;
       border-top: 1px solid var(--hairline-s);
@@ -613,17 +636,41 @@
       .mobile-toggle { display: flex !important; }
       .nav-menu-btn, .nav-dropdown { display: none !important; }
       .site-header.scrolled .header-logo { left: 20px; }
+      .hero-cta .btn { font-size: 17px; padding: 14px 22px; }
     }
     @media (max-width: 880px) {
       .prod-grid { grid-template-columns: 1fr !important; }
       /* prod-detail keeps image next to text on tablet */
       .prod-row { flex-direction: column; align-items: flex-start; }
+      /* reduce product section vertical spacing */
+      #produkty { padding-top: 80px; padding-bottom: 80px; }
+      .produkty-inner { gap: 64px; }
+      .product-block { gap: 24px; }
+      .prod-card { padding: 32px; min-height: unset; }
+      .ingredients-card { padding: 28px; }
+      .variants-block { padding: 24px 28px; }
     }
     @media (max-width: 640px) {
+      /* reduce horizontal margins — strip double-padding (section + inner) down to one 16px gutter */
+      #hero, #o-nas, #kavarna, #oaza, #produkty, #kontakt {
+        padding-left: 36px; padding-right: 36px;
+      }
+      .section-inner { padding-left: 0 !important; padding-right: 0 !important; }
       /* stack image below text on mobile */
       .prod-detail { grid-template-columns: 1fr !important; }
       /* image slot goes full-width when stacked */
       .prod-detail .img-slot { width: 100% !important; height: 200px !important; }
+      /* further reduce spacings on mobile */
+      #produkty { padding-top: 60px; padding-bottom: 60px; }
+      .produkty-inner { gap: 48px; }
+      .product-block { gap: 20px; }
+      .prod-card { padding: 32px; gap: 20px; }
+      .ingredients-card { padding: 32px; gap: 16px; }
+      .variants-block { padding: 32px; }
+      /* menu item: stack type label above meal name */
+      .menu-item { display: flex; flex-direction: column; gap: 4px; }
+      .menu-type { padding-top: 0; }
+      .menu-main { margin-top: 0; }
     }
 
     /* ── Scroll reveal ─────────────────────────────────── */
@@ -667,8 +714,9 @@
     /* scroll-cue ends at 0.68s + 0.85s = 1.53s → start here */
     .header-logo  { animation: headerSlideIn .6s cubic-bezier(.22,1,.36,1) 1.2s both; }
     .nav-menu-btn { animation: headerSlideIn .6s cubic-bezier(.22,1,.36,1) 1.3s both; }
+    .mobile-toggle { animation: headerSlideIn .6s cubic-bezier(.22,1,.36,1) 1.3s both; }
     @media (prefers-reduced-motion: reduce) {
-      .header-logo, .nav-menu-btn { animation: none; }
+      .header-logo, .nav-menu-btn, .mobile-toggle { animation: none; }
     }
   </style>
 </head>
@@ -868,14 +916,14 @@
   <!-- PRODUKTY -->
   <section id="produkty" aria-labelledby="produkty-title">
     <div class="section-inner produkty-inner" style="padding: 0 24px;">
-      <header class="section-heading">
-
-        <h2 class="section-title" id="produkty-title">Produkty</h2>
-      </header>
-
-      <p class="para" style="max-width:800px;margin-top:-40px;">
-        Máte chuť na něco dobrého? Bylinkové sirupy a marmelády si můžete objednat přes web formulář. Děkujeme za vaši podporu a přízeň&thinsp;—&thinsp;Helenka a Martin z Bilerbinu.
-      </p>
+      <div>
+        <header class="section-heading">
+          <h2 class="section-title" id="produkty-title">Produkty</h2>
+        </header>
+        <p class="para" style="max-width:800px;">
+          Máte chuť na něco dobrého? Bylinkové sirupy a marmelády si můžete objednat přes web formulář. Děkujeme za vaši podporu a přízeň&thinsp;—&thinsp;Helenka a Martin z Bilerbinu.
+        </p>
+      </div>
 
       <!-- Sirupy -->
       <article class="product-block" aria-labelledby="sirupy-title">
@@ -1021,8 +1069,20 @@
         </div>
         <span class="footer-head" style="margin-top:28px;">Sledujte nás</span>
         <nav class="social-list" aria-label="Sociální sítě">
-          <a href="#" class="social-btn" aria-label="Instagram">IG</a>
-          <a href="#" class="social-btn" aria-label="Facebook">FB</a>
+          <a href="#" class="social-btn" aria-label="Instagram">
+            <!-- Instagram icon -->
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4.5"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="Facebook">
+            <!-- Facebook icon -->
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </a>
         </nav>
       </div>
     </div>
