@@ -108,21 +108,19 @@
       padding: 0 56px;
     }
 
-    /* Logo anchor */
+    /* Logo anchor — transform-only positioning (no left/top animation)
+       so Safari never desyncs the compositor and layout passes.
+       JS sets --logo-x to the pixel center offset at load + resize. */
     .header-logo {
       position: absolute;
-      left: 50%; top: 22px;
-      transform: translateX(-50%);
+      left: 0; top: 0;
+      transform: translateX(var(--logo-x, 0px)) translateY(22px);
       display: flex; align-items: center; gap: 12px;
-      transition:
-        left .45s cubic-bezier(.5,.05,.2,1),
-        top .45s cubic-bezier(.5,.05,.2,1),
-        transform .45s cubic-bezier(.5,.05,.2,1);
-      will-change: left, top, transform;
+      transition: transform .45s cubic-bezier(.5,.05,.2,1);
+      will-change: transform;
     }
     .site-header.scrolled .header-logo {
-      left: 56px; top: 16px;
-      transform: translateX(0);
+      transform: translateX(56px) translateY(16px);
     }
     .logo-ring {
       width: 105px; height: 105px;
@@ -260,7 +258,7 @@
     .btn {
       font-family: 'Amiri', serif; font-size: 20px; line-height: 1;
       padding: 12px 24px;
-      border-radius: 999px; border: 1px solid var(--brown);
+      border-radius: 12px; border: 1px solid var(--brown);
       background: transparent; color: var(--ink);
       transition: background .2s, color .2s;
     }
@@ -479,7 +477,7 @@
       gap: 24px;
     }
     .prod-card {
-      border-radius: 8px; padding: 48px;
+      border-radius: 8px; padding: 40px;
       display: flex; flex-direction: column; gap: 28px; min-height: 360px;
     }
     .prod-detail {
@@ -498,7 +496,7 @@
     .prod-sizes { display: flex; gap: 8px; }
     .size-btn {
       font-family: 'Amiri', serif; font-size: 18px;
-      padding: 10px 22px; border-radius: 999px;
+      padding: 8px 16px; border-radius: 999px;
       background: transparent; color: var(--ink);
       border: 1px solid var(--brown);
       transition: background .2s, color .2s;
@@ -520,7 +518,7 @@
       color: var(--cream); margin-top: 14px;
     }
     .variants-block {
-      background: rgb(233,212,198); border-radius: 8px; padding: 36px 40px;
+      background: rgb(233,212,198); border-radius: 8px; padding: 40px;
     }
     .variants-block h4 {
       font-family: 'Amiri', serif; font-weight: 400; margin: 0;
@@ -625,7 +623,7 @@
       .header-inner { padding: 0 32px !important; }
       .nav-left  { left: 32px !important; gap: 22px !important; }
       .nav-right { right: 32px !important; gap: 22px !important; }
-      .site-header.scrolled .header-logo { left: 32px; }
+      .site-header.scrolled .header-logo { transform: translateX(32px) translateY(16px); }
     }
     @media (max-width: 880px) {
       .nav-left { display: none !important; }
@@ -639,8 +637,8 @@
       .nav-left, .nav-right { display: none !important; }
       .mobile-toggle { display: flex !important; }
       .nav-menu-btn, .nav-dropdown { display: none !important; }
-      .site-header.scrolled .header-logo { left: 20px; }
-      .hero-cta .btn { font-size: 17px; padding: 14px 22px; }
+      .site-header.scrolled .header-logo { transform: translateX(20px) translateY(16px); }
+      .hero-cta .btn { font-size: 19px; padding: 14px 22px; }
     }
     @media (max-width: 880px) {
       .prod-grid { grid-template-columns: 1fr !important; }
@@ -1115,6 +1113,19 @@ function smoothJump(e, id) {
 const header    = document.getElementById('site-header');
 const navRight  = document.getElementById('nav-right');
 
+// ── Logo centre offset (Safari-safe: transform-only positioning) ──
+// `--logo-x` is the pixel value that centres the 105px logo ring inside
+// .header-inner. Recalculated on load and every resize so the non-scrolled
+// state always snaps to the correct pixel value rather than using left:50%.
+const headerLogo = header.querySelector('.header-logo');
+const headerInner = header.querySelector('.header-inner');
+function updateLogoCenterOffset() {
+  const cx = (headerInner.offsetWidth - 105) / 2; // 105 = non-scrolled ring width
+  headerLogo.style.setProperty('--logo-x', Math.round(cx) + 'px');
+}
+updateLogoCenterOffset();
+window.addEventListener('resize', updateLogoCenterOffset, { passive: true });
+
 // All nav items in order (for scrolled right nav)
 const ALL_NAV = [
   { href: 'o-nas',    label: 'O nás'        },
@@ -1166,11 +1177,21 @@ function onScroll() {
 const SECTION_IDS = ['hero','o-nas','kavarna','oaza','produkty','kontakt'];
 
 function updateActiveLinks() {
-  const y = window.scrollY + 130;
+  // If the user has scrolled to the bottom of the page (footer can't reach
+  // the spy threshold because it starts too close to the scroll limit),
+  // highlight Kontakt unconditionally.
+  const atBottom =
+    window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 40;
+
   let cur = SECTION_IDS[0];
-  for (const id of SECTION_IDS) {
-    const el = document.getElementById(id);
-    if (el && el.offsetTop <= y) cur = id;
+  if (atBottom) {
+    cur = 'kontakt';
+  } else {
+    const y = window.scrollY + 130;
+    for (const id of SECTION_IDS) {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= y) cur = id;
+    }
   }
   document.querySelectorAll('.nav-link').forEach(a => {
     const id = a.getAttribute('href')?.replace('#','');
