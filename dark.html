@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Bilerbin | Domácí produkty z přírody Orlických hor</title>
+  <meta name="description" content="Bilerbin vyrábí bylinkové sirupy a džemy z čistého prostředí Orlických hor. Navštivte naši kavárnu v Lanškrouně nebo si objednejte online."/>
+  <meta name="keywords" content="bylinkové sirupy, domácí džemy, kavárna Lanškroun, přírodní produkty, Orlické hory, Bilerbin"/>
+  <meta name="author" content="Bilerbin — Helenka &amp; Martin"/>
+  <link rel="canonical" href="https://bilerbin.cz/"/>
+  <link rel="icon" type="image/png" href="assets/bilerbin-logo.png"/>
+  <link rel="apple-touch-icon" href="assets/bilerbin-logo.png"/>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://bilerbin.cz/"/>
+  <meta property="og:title" content="Bilerbin — Bylinkové sirupy, džemy &amp; kavárna"/>
+  <meta property="og:description" content="Přírodní produkty a rodinná kavárna z podhůří Orlických hor. Sirupy, džemy, polední menu."/>
+  <meta property="og:locale" content="cs_CZ"/>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Bilerbin",
+    "description": "Bylinkové sirupy, džemy a malá kavárna v podhůří Orlických hor.",
+    "url": "https://bilerbin.cz",
+    "telephone": "+420608726323",
+    "email": "helena@bilerbin.cz",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Kozinova 71",
+      "postalCode": "563 01",
+      "addressLocality": "Lanškroun",
+      "addressCountry": "CZ"
+    },
+    "openingHours": ["Mo-Fr 09:00-18:00", "Sa 09:00-12:00"]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Italiana&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --white:   rgb(248,248,245);
+      --white-2: rgba(248,248,245,0.78);
+      --white-3: rgba(248,248,245,0.55);
+      --green:   rgb(122,158,108);
+      --green-d: rgb(96,131,84);
+      --line:    rgba(248,248,245,0.30);
+      --ink:     rgb(12,14,11);
+      /* Shared horizontal page margin (gutter) for landing + the rest. */
+      --gutter:  clamp(28px, 6vw, 88px);
+    }
+    body {
+      font-family: 'Amiri', serif;
+      color: var(--white);
+      background: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    ::selection { background: rgba(122,158,108,0.55); color: var(--white); }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; }
+    button:focus-visible, a:focus-visible {
+      outline: 2px solid rgba(122,158,108,0.55);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+    img { display: block; max-width: 100%; }
+
+    /* ────────────────────────────────────────────────────────────
+       FIXED VIDEO LAYER — deepest layer, revealed as the hero
+       scrolls away. Stays put while content scrolls over it.
+       ──────────────────────────────────────────────────────────── */
+    .kavarna__fixedbg {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        linear-gradient(rgba(6,8,6,.72), rgba(6,8,6,.72)),
+        url('assets/kavarna-cups.jpg') center / 110% no-repeat;
+    }
+    .bgvideo {
+      position: fixed; inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .bgvideo__media {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .bgvideo__scrim {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(rgba(8,10,8,0.30), rgba(8,10,8,0.30)),
+        radial-gradient(ellipse at center, rgba(8,10,8,0.42) 0%, rgba(8,10,8,0.66) 100%);
+    }
+
+    main { position: relative; z-index: 1; }
+
+    /* ────────────────────────────────────────────────────────────
+       HERO / LANDING — opaque, sits over the fixed video and
+       scrolls away to "unreveal" the About section beneath it.
+       ──────────────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 160px var(--gutter) 80px;
+      overflow: hidden;
+    }
+    .hero__bg {
+      position: absolute;
+      left: 0; right: 0;
+      top: -15%;
+      width: 100%; height: 130%;
+      object-fit: cover;
+      display: block;
+      will-change: transform;
+    }
+    .hero__scrim {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(rgba(8,10,8,0.22), rgba(8,10,8,0.22)),
+        radial-gradient(ellipse at center, rgba(8,10,8,0.40) 0%, rgba(8,10,8,0.58) 100%);
+    }
+
+    .hero__inner {
+      position: relative;
+      text-align: center;
+      max-width: 720px; margin-top: -60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+    }
+    .eyebrow {
+      font-family: 'Amiri', serif;
+      font-size: 13px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-shadow: 0 1px 16px rgba(4,6,4,.55);
+      margin: 0;
+    }
+    .title {
+      font-family: 'Italiana', serif;
+      font-size: clamp(64px, 9vw, 112px);
+      font-weight: 400;
+      margin: 0;
+      line-height: 1;
+      letter-spacing: 0.01em;
+      color: var(--white);
+      text-shadow: 0 1px 16px rgba(4,6,4,.55);
+    }
+    .subtitle {
+      font-family: 'Amiri', serif;
+      font-style: italic;
+      font-size: clamp(22px, 2.4vw, 32px);
+      margin: 0;
+      line-height: 1.2;
+      color: var(--white-2);
+    }
+    .actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn {
+      font-family: 'Amiri', serif;
+      font-size: 19px;
+      line-height: 1;
+      padding: 13px 30px;
+      border-radius: 999px;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(130%);
+      -webkit-backdrop-filter: blur(12px) saturate(130%);
+      transition: background .25s, border-color .25s, box-shadow .25s, color .25s, transform .2s;
+    }
+    .btn--filled {
+      background: rgba(122,158,108,.38);
+      border: 1px solid rgba(122,158,108,.60);
+      color: var(--white);
+      box-shadow: 0 2px 16px rgba(72,112,60,.32), inset 0 1px 0 rgba(122,158,108,.24);
+    }
+    .btn--filled:hover {
+      background: rgba(122,158,108,.52);
+      border-color: rgba(122,158,108,.78);
+      box-shadow: 0 4px 22px rgba(72,112,60,.44), inset 0 1px 0 rgba(122,158,108,.30);
+      transform: translateY(-2px);
+    }
+    .btn--ghost {
+      background: rgba(248,248,245,.08);
+      border: 1px solid rgba(248,248,245,.20);
+      color: var(--white-2);
+      box-shadow: 0 2px 14px rgba(8,12,18,.20);
+    }
+    .btn--ghost:hover {
+      background: rgba(248,248,245,.14);
+      border-color: rgba(248,248,245,.36);
+      color: var(--white);
+      box-shadow: 0 4px 18px rgba(8,12,18,.28);
+      transform: translateY(-2px);
+    }
+
+    .scrollcue {
+      position: absolute;
+      bottom: 36px; left: 0; right: 0;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      text-decoration: none;
+      color: var(--white-2);
+      font-family: 'Amiri', serif;
+      font-size: 18px;
+      transition: color .2s ease;
+    }
+    .scrollcue:hover { color: var(--white); }
+    #aboutCue {
+      position: relative; bottom: auto; left: auto; right: auto; transform: none;
+    }
+    #ctaScrollcue { opacity: 0; bottom: 72px; }
+    .scrollcue svg { animation: bob 2.4s ease-in-out infinite; }
+    @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+
+    /* Minimal top bar */
+    .topbar {
+      position: absolute; top: 0; left: 0; right: 0;
+      z-index: 2;
+      display: flex; align-items: center; justify-content: flex-end;
+      padding: 28px var(--gutter);
+    }
+    .topbar__nav {
+      display: flex; gap: 28px;
+      font-family: 'Amiri', serif; font-size: 18px;
+      color: var(--white-2);
+    }
+    .topbar__nav a { color: inherit; text-decoration: none; transition: color .2s; }
+    .topbar__nav a:hover { color: var(--white); }
+    @media (max-width: 640px) { .topbar__nav { display: none; } }
+
+    /* ────────────────────────────────────────────────────────────
+       ABOUT — transparent, so the fixed video shows through.
+       ──────────────────────────────────────────────────────────── */
+    .about {
+      position: relative;
+      z-index: 1;
+      min-height: 140vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      padding: 200px var(--gutter) 220px;
+    }
+    .about__inner {
+      position: relative;
+      max-width: 1040px;
+      width: 100%;
+      display: flex; flex-direction: column;
+      gap: 28px;
+    }
+    .about__title {
+      font-family: 'Italiana', serif;
+      font-weight: 400; margin: 0;
+      font-size: clamp(44px, 6vw, 76px);
+      line-height: 1.02;
+      color: var(--white);
+    }
+    .about__lead {
+      font-family: 'Amiri', serif;
+      font-style: italic;
+      font-size: clamp(20px, 2.2vw, 26px);
+      line-height: 1.45;
+      margin: 0;
+      color: var(--white-2);
+    }
+    .about__p {
+      font-family: 'Amiri', serif;
+      font-size: clamp(17px, 1.5vw, 19px);
+      line-height: 1.7;
+      margin: 0;
+      color: var(--white-2);
+      max-width: 78ch;
+    }
+
+    /* Vertical nav — fixed to the top-right, revealed on the About section.
+       Stays put (no parallax); items list in one-by-one when shown. */
+    .about__nav {
+      position: fixed;
+      top: 48px; right: var(--gutter);
+      z-index: 3;
+      display: flex; flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      text-align: left;
+      font-family: 'Amiri', serif;
+      font-size: 19px;
+      pointer-events: none;
+    }
+    .about__nav.is-visible { pointer-events: auto; }
+    .about__nav a {
+      position: relative;
+      color: var(--white-3);
+      text-decoration: none;
+      padding-left: 22px;
+      opacity: 0;
+      transform: translateX(-14px);
+      transition: opacity .55s ease, transform .55s ease, color .25s ease;
+    }
+    /* Active-section marker dot */
+    .about__nav a::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 50%;
+      width: 6px; height: 6px;
+      margin-top: -3px;
+      border-radius: 999px;
+      background: var(--green);
+      opacity: 0;
+      transform: scale(0.4);
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    .about__nav a:hover { color: var(--white); }
+    .about__nav a.active { color: var(--white); }
+    .about__nav a.active::before { opacity: 1; transform: scale(1); }
+    /* Reveal + per-item stagger when the nav becomes visible */
+    .about__nav.is-visible a { opacity: 1; transform: translateX(0); }
+    .about__nav.is-visible a:nth-child(1) { transition-delay: .06s; }
+    .about__nav.is-visible a:nth-child(2) { transition-delay: .16s; }
+    .about__nav.is-visible a:nth-child(3) { transition-delay: .26s; }
+    .about__nav.is-visible a:nth-child(4) { transition-delay: .36s; }
+    @media (max-width: 760px) { .about__nav { display: none; } }
+
+    .will { will-change: transform; }
+
+    /* ────────────────────────────────────────────────────────────
+       PRODUKTY — full-bleed product carousel. Opaque: the current
+       product photo is the background, so it covers the fixed video.
+       ──────────────────────────────────────────────────────────── */
+    .products {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      min-height: 100vh;
+      overflow: hidden;
+      background: rgb(6,8,6);
+      display: flex;
+      flex-direction: column;
+      will-change: transform;
+      padding: 72px var(--gutter) 88px;
+    }
+    /* Cross-fading photo background layers */
+    .products__bg { position: absolute; inset: 0; z-index: 0; background: rgb(6,8,6); }
+    .products__img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 72% center;
+      opacity: 0;
+      transition: opacity .8s ease;
+      will-change: opacity;
+    }
+    .products__img.is-active { opacity: 1; }
+    .products__scrim {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(90deg, rgba(6,8,6,0.78) 0%, rgba(6,8,6,0.46) 18%, rgba(6,8,6,0.10) 40%, rgba(6,8,6,0) 56%),
+        linear-gradient(0deg, rgba(6,8,6,0.34) 0%, rgba(6,8,6,0) 38%);
+    }
+
+    .products__heading {
+      position: relative;
+      margin: 0;
+      z-index: 2;
+      font-family: 'Italiana', serif;
+      font-weight: 400;
+      font-size: clamp(40px, 5vw, 68px);
+      line-height: 1;
+      color: var(--white);
+      text-shadow: 0 1px 16px rgba(4,6,4,0.55);
+    }
+
+    /* Glassy Sirupy / Džemy selector — top-center */
+    .products__selector {
+      position: absolute;
+      top: 84px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: inline-flex;
+      gap: 4px;
+      padding: 5px;
+      border-radius: 999px;
+      background: rgba(174,206,232,0.10);
+      border: 1px solid rgba(202,222,242,0.32);
+      backdrop-filter: blur(14px) saturate(120%);
+      -webkit-backdrop-filter: blur(14px) saturate(120%);
+      box-shadow: 0 10px 34px rgba(8,12,18,0.34);
+    }
+    .seg {
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Amiri', serif;
+      font-size: 18px;
+      letter-spacing: 0.02em;
+      color: var(--white-2);
+      background: transparent;
+      padding: 10px 26px;
+      border-radius: 999px;
+      transition: color .25s ease, background .25s ease;
+    }
+    .seg:hover { color: var(--white); }
+    .seg.is-active {
+      color: rgb(22,30,28);
+      background: rgba(244,248,252,0.92);
+      box-shadow: 0 2px 10px rgba(8,12,18,0.22);
+    }
+
+    /* Product copy block — left, vertically centered */
+    .products__content {
+      position: relative;
+      z-index: 2;
+      max-width: 360px;
+      margin: auto 0;
+      display: flex; flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      text-shadow: 0 1px 16px rgba(4,6,4,0.55);
+    }
+    .products__eyebrow {
+      font-family: 'Amiri', serif;
+      font-size: 13px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin: 0;
+    }
+    .products__title {
+      font-family: 'Italiana', serif;
+      font-weight: 400;
+      margin: 0;
+      font-size: clamp(38px, 4.4vw, 58px);
+      line-height: 1.04;
+      color: var(--white);
+    }
+    .products__desc {
+      font-family: 'Amiri', serif;
+      font-size: clamp(17px, 1.5vw, 19px);
+      line-height: 1.65;
+      margin: 0;
+      color: var(--white-2);
+    }
+    .products__slozeni {
+      font-family: 'Amiri', serif;
+      font-size: clamp(13px, 1.1vw, 14px);
+      line-height: 1.55;
+      margin: 0;
+      color: var(--white-2);
+      border-top: 1px solid rgba(248,248,245,.10);
+      padding-top: 12px;
+    }
+    /* swap animation for the copy */
+    .products__content.is-swapping .products__eyebrow,
+    .products__content.is-swapping .products__title,
+    .products__content.is-swapping .products__desc,
+    .products__content.is-swapping .products__slozeni {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    .products__eyebrow,
+    .products__title,
+    .products__desc,
+    .products__slozeni {
+      transition: opacity .4s ease, transform .4s ease;
+    }
+    .products__cta {
+      margin-top: 4px;
+      white-space: nowrap;
+      font-family: 'Amiri', serif;
+      font-size: 19px;
+      line-height: 1;
+      padding: 13px 30px;
+      border-radius: 999px;
+      cursor: pointer;
+      color: var(--white);
+      background: rgba(122,158,108,.38);
+      border: 1px solid rgba(122,158,108,.60);
+      box-shadow: 0 2px 16px rgba(72,112,60,.32), inset 0 1px 0 rgba(122,158,108,.24);
+      backdrop-filter: blur(12px) saturate(130%);
+      -webkit-backdrop-filter: blur(12px) saturate(130%);
+      transition: background .25s ease, border-color .25s ease, box-shadow .25s ease, transform .2s ease;
+    }
+    .products__cta:hover {
+      background: rgba(122,158,108,.52);
+      border-color: rgba(122,158,108,.78);
+      box-shadow: 0 4px 22px rgba(72,112,60,.44), inset 0 1px 0 rgba(122,158,108,.30);
+      transform: translateY(-2px);
+    }
+    .products__cta:active { transform: translateY(1px); }
+
+    /* Circular prev / next arrows at the section edges */
+    .products__arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 3;
+      width: 60px; height: 60px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 999px;
+      cursor: pointer;
+      color: var(--white);
+      background: rgba(174,206,232,0.08);
+      border: 1px solid rgba(202,222,242,0.34);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: background .2s ease, border-color .2s ease;
+    }
+    .products__arrow:hover { background: rgba(244,248,252,0.22); border-color: rgba(244,248,252,0.6); }
+    .products__arrow--prev { left: clamp(16px, 3vw, 40px); }
+    .products__arrow--next { right: clamp(16px, 3vw, 40px); }
+
+    /* Dot indicators — fixed to viewport bottom-centre */
+    .products__dots {
+      position: fixed; bottom: 32px; left: 0; right: 0; z-index: 10;
+      display: flex; justify-content: center; gap: 9px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s ease;
+    }
+    .products__dots.is-visible { opacity: 1; pointer-events: auto; }
+    .products__dots button {
+      width: 9px; height: 9px; padding: 0;
+      border-radius: 999px;
+      border: none; cursor: pointer;
+      background: rgba(248,248,245,0.34);
+      transition: background .2s ease, transform .2s ease;
+    }
+    .products__dots button.is-active { background: var(--green); transform: scale(1.18); }
+
+    @media (max-width: 760px) {
+      .products { padding-top: 100px; }
+      .products__selector { top: 100px; }
+      .products__arrow { width: 48px; height: 48px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scrollcue svg { animation: none; }
+      .products__img { transition: none; }
+    }
+
+    /* ── Kavárna ─────────────────────────────────────────── */
+    .kavarna {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      margin-top: 80vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 120px var(--gutter) 100px;
+      gap: 40px;
+      /* background provided by .kavarna__fixedbg fixed layer */
+    }
+    .kavarna__eyebrow { display: none; }
+    .products__eyebrow { display: none; }
+    .kavarna__title {
+      font-family: 'Italiana', serif; font-weight: 400; margin: 0;
+      font-size: clamp(44px, 6vw, 76px); line-height: 1.02; color: var(--white);
+    }
+    .kavarna__sub {
+      font-family: 'Amiri', serif; font-style: italic; margin: 0;
+      font-size: clamp(18px, 1.8vw, 22px); line-height: 1.6;
+      color: var(--white-2); max-width: 56ch;
+    }
+    .kavarna__grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .kavarna__card {
+      background: rgba(248,248,245,.04);
+      border: 1px solid rgba(248,248,245,.10);
+      border-radius: 12px; min-height: 240px;
+      display: flex; align-items: flex-end; padding: 20px 24px;
+    }
+    .kavarna__card-label {
+      font-family: 'Amiri', serif; font-size: 14px;
+      letter-spacing: .06em; color: var(--white-3);
+    }
+    @media (max-width: 760px) {
+      .kavarna__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    .footer {
+      position: relative; z-index: 1;
+      background: rgb(4,5,4);
+      padding: 72px clamp(16px, 2.5vw, 40px) 36px;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+    }
+    .footer__grid {
+      flex: 1;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(248,248,245,.08);
+    }
+    .footer__brand {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 16px;
+    }
+    .footer__logo {
+      width: 44px; height: 44px; border-radius: 999px; object-fit: cover;
+    }
+    .footer__brand-name {
+      font-family: 'Italiana', serif; font-size: 24px; color: var(--white);
+    }
+    .footer__tagline {
+      font-family: 'Amiri', serif; font-size: 17px;
+      line-height: 1.65; color: var(--white-3); margin: 0; max-width: 28ch;
+    }
+    .footer__head {
+      display: block; font-family: 'Amiri', serif; font-size: 12px;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 12px;
+    }
+    .footer__head + .footer__head,
+    .footer__body + .footer__head { margin-top: 28px; }
+    .footer__body {
+      font-family: 'Amiri', serif; font-size: 17px;
+      line-height: 1.75; color: var(--white-2);
+    }
+    .footer__body a { transition: color .2s; }
+    .footer__body a:hover { color: var(--white); }
+    .footer__actions {
+      display: flex; flex-direction: column; gap: 12px; margin-top: 4px;
+    }
+    .footer__social {
+      display: flex; gap: 10px; margin-top: 16px;
+    }
+    .footer__social-btn {
+      width: 34px; height: 34px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 999px;
+      background: rgba(248,248,245,.06); border: 1px solid rgba(248,248,245,.12);
+      color: var(--white-3);
+      transition: background .2s, border-color .2s, color .2s;
+    }
+    .footer__social-btn:hover {
+      background: rgba(248,248,245,.12); border-color: rgba(248,248,245,.24);
+      color: var(--white);
+    }
+    .footer__bottom {
+      padding-top: 24px;
+      font-family: 'Amiri', serif; font-size: 14px; color: var(--white-3);
+    }
+    @media (max-width: 900px) {
+      .footer__grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    }
+    @media (max-width: 560px) {
+      .footer__grid { grid-template-columns: 1fr; gap: 28px; }
+    }
+
+    /* ── CTA slide-over section ──────────────────────────── */
+    .cta-section {
+      position: relative; z-index: 2;
+      min-height: 100vh;
+      margin-top: 80vh; /* scroll buffer — carousel undisturbed before window appears */
+      background: transparent; /* carousel visible on sides */
+      display: flex; align-items: center; justify-content: center;
+      padding: 60px var(--gutter);
+    }
+    .cta-section__inner {
+      position: relative;
+      max-width: min(820px, 86vw); width: 100%;
+      text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 24px;
+      will-change: transform;
+      background: var(--ink);
+      border-radius: 24px;
+      padding: 64px 56px;
+      box-shadow:
+        0 0 0 1px rgba(248,248,245,.08),
+        0 24px 64px rgba(0,0,0,.7),
+        0 60px 120px rgba(0,0,0,.35);
+    }
+    .cta-section__close {
+      position: absolute; top: 20px; right: 22px;
+      background: none; border: none; padding: 4px;
+      color: var(--white-3);
+      transition: color .2s, transform .2s;
+    }
+    .cta-section__close:hover {
+      color: var(--white);
+      transform: scale(1.15);
+    }
+    .cta-section__eyebrow {
+      font-family: 'Amiri', serif; font-size: 12px;
+      letter-spacing: .3em; text-transform: uppercase;
+      color: var(--green); margin: 0;
+    }
+    .cta-section__title {
+      font-family: 'Italiana', serif; font-weight: 400; margin: 0;
+      font-size: clamp(48px, 7vw, 88px); line-height: 1;
+      color: var(--white);
+    }
+    .cta-section__text {
+      font-family: 'Amiri', serif; font-style: italic; margin: 0;
+      font-size: clamp(18px, 1.8vw, 22px); line-height: 1.6;
+      color: var(--white-2); max-width: 44ch;
+    }
+    .cta-section__actions {
+      display: flex; gap: 14px; margin-top: 8px;
+      flex-wrap: wrap; justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Kavárna fixed background — sits behind video, revealed as video crossfades out -->
+  <div class="kavarna__fixedbg" aria-hidden="true"></div>
+
+  <!-- Fixed video — deepest layer -->
+  <div class="bgvideo" aria-hidden="true">
+    <video class="bgvideo__media" data-src="assets/about-bg.mp4" autoplay muted loop playsinline></video>
+    <div class="bgvideo__scrim"></div>
+  </div>
+
+  <main>
+
+    <!-- ═══════════════════════════════ HERO ═════════════════════════════ -->
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <img class="hero__bg will" data-px="-0.10" src="assets/hero-herbs.jpg" alt=""/>
+      <div class="hero__scrim"></div>
+
+      <header class="topbar" role="banner">
+        <nav class="topbar__nav" aria-label="Hlavní navigace">
+          <a href="#o-nas" onclick="event.preventDefault();var t=0,e=document.getElementById('about-title');while(e){t+=e.offsetTop;e=e.offsetParent;}window.scrollTo({top:t-20,behavior:'smooth'})">O nás</a>
+          <a href="#produkty">Produkty</a>
+          <a href="#kavarna">Kavárna</a>
+          <a href="#kontakt">Kontakt</a>
+        </nav>
+      </header>
+
+      <div class="hero__inner" id="heroInner">
+        <p class="eyebrow will" data-px="0.18">Est. v podhůří Orlických hor</p>
+        <h1 class="title will" id="hero-title" data-px="0.14">Bilerbin</h1>
+        <p class="subtitle will" data-px="0.10">Přírodní produkty&ensp;|&ensp;Rodinná kavárna</p>
+        <div class="actions will" data-px="0.06">
+          <button type="button" class="btn btn--filled" onclick="document.getElementById('produkty').scrollIntoView({behavior:'smooth'})">Zobrazit produkty</button>
+          <button type="button" class="btn btn--ghost" onclick="document.getElementById('kavarna').scrollIntoView({behavior:'smooth'})">Navštivte kavárnu</button>
+        </div>
+      </div>
+
+      <a href="#o-nas" class="scrollcue will" id="scrollcue" data-px="0.05" aria-label="Přejít níže"
+         onclick="event.preventDefault();var t=0,e=document.getElementById('about-title');while(e){t+=e.offsetTop;e=e.offsetParent;}window.scrollTo({top:t-20,behavior:'smooth'})">
+        <span>Více o nás</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 9l7 7 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </section>
+
+    <!-- ═══════════════════════════════ O NÁS ════════════════════════════ -->
+    <section class="about" id="o-nas" aria-labelledby="about-title">
+      <div class="about__inner">
+        <h2 class="about__title will" id="about-title" data-px="0.15">O nás</h2>
+        <p class="about__lead will" data-px="0.12">Vše to začalo před deseti lety, kdy jsme se po dostudování VŠ rozhodli, že město není nic pro nás — žít chceme někde v přírodě. Naší inspirací jsou babičky, které ještě žily v souladu s přírodou.</p>
+        <p class="about__p will" data-px="0.095">Ač jsme oba chemici, té chemie (a obzvláště v jídle) už nám připadá trochu moc. Snažíme se co nejvíce si vypěstovat, na naší zahradě ale nenajdete žádné přešlechtěné cizokrajné rostliny, umělá hnojiva a chemické postřiky. Uznáváme permakulturní přístup — vzorem nám jsou naše babičky, které ještě žily v souladu s přírodou.</p>
+        <p class="about__p will" data-px="0.07">Nejdříve bylo vše jen pro nás, recepty jsem postupně upravovala a vylepšovala. Rodina a kamarádi si brzy zvykli, že dárky od nás jsou většinou jedlé. A protože všem moc chutná, rozhodli jsme se vyrábět dobroty pro co nejvíce lidí, kteří chtějí džemy, sirupy a sladkosti bez umělých konzervantů, barviv a aromat.</p>
+        <p class="about__p will" data-px="0.05">A teď už je to jen na vás. Moc si přejeme, aby vám chutnalo a měli jste dobrý pocit, že děláte něco pro své zdraví i naši přírodu.</p>
+      </div>
+
+      <a href="#produkty" class="scrollcue" id="aboutCue" aria-label="Přejít na produkty">
+        <span>Naše produkty</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 9l7 7 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </section>
+
+    <!-- ═══════════════════════════════ PRODUKTY ══════════════════════════ -->
+    <section class="products" id="produkty" aria-labelledby="produkty-title">
+      <div class="products__bg" aria-hidden="true">
+        <img class="products__img is-active" id="prodImgA" alt=""/>
+        <img class="products__img" id="prodImgB" alt=""/>
+        <div class="products__scrim"></div>
+      </div>
+
+      <h2 class="products__heading" id="produkty-title">Produkty</h2>
+
+      <div class="products__selector" id="prodSelector" role="tablist" aria-label="Kategorie produktů">
+        <button type="button" class="seg is-active" data-cat="sirupy" role="tab" aria-selected="true">Sirupy</button>
+        <button type="button" class="seg" data-cat="dzemy" role="tab" aria-selected="false">Džemy</button>
+      </div>
+
+      <div class="products__content" id="prodContent">
+        <p class="products__eyebrow" id="prodCat">Sirupy</p>
+        <h3 class="products__title" id="prodTitle"></h3>
+        <p class="products__desc"    id="prodDesc"></p>
+        <p class="products__slozeni" id="prodSlozeni"></p>
+        <button type="button" class="products__cta" id="prodCta">Objednat</button>
+      </div>
+
+      <button type="button" class="products__arrow products__arrow--prev" id="prodPrev" aria-label="Předchozí produkt">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="products__arrow products__arrow--next" id="prodNext" aria-label="Další produkt">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         ZAUJALO VÁS TO? — slides over the carousel
+    ════════════════════════════════════════════ -->
+    <section class="cta-section" id="zaujalo" aria-labelledby="cta-title">
+      <div class="cta-section__inner">
+        <button type="button" class="cta-section__close" id="ctaClose" aria-label="Zavřít">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <p class="cta-section__eyebrow">Bilerbin</p>
+        <h2 class="cta-section__title" id="cta-title">Zaujalo vás to?</h2>
+        <p class="cta-section__text">Vyzkoušejte naše bylinkové sirupy a marmelády — objednejte online nebo nás navštivte v kavárně v Lanškrouně.</p>
+        <div class="cta-section__actions">
+          <button type="button" class="btn btn--filled">Objednat</button>
+          <button type="button" class="btn btn--ghost">Více informací</button>
+        </div>
+      </div>
+      <a href="#kavarna" class="scrollcue" id="ctaScrollcue" aria-label="Přejít na kavárnu">
+        <span>Kavárna</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 9l7 7 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         KAVÁRNA
+    ════════════════════════════════════════════ -->
+    <section class="kavarna" id="kavarna" aria-labelledby="kavarna-title">
+      <p class="kavarna__eyebrow">Kavárna</p>
+      <h2 class="kavarna__title" id="kavarna-title">Rodinná kavárna<br>v centru Lanškrouna</h2>
+      <p class="kavarna__sub">Mimo výrobu sirupů a marmelád také provozujeme malou kavárnu. Kromě výborné kávy a bylinkových čajů si můžete pochutnat na domácích dezertech a ochutnat všechny naše sirupy jako horké nápoje nebo limonády.</p>
+      <div class="kavarna__grid">
+        <div class="kavarna__card"><span class="kavarna__card-label">Fotografie interiéru</span></div>
+        <div class="kavarna__card"><span class="kavarna__card-label">Nápojový lístek</span></div>
+        <div class="kavarna__card"><span class="kavarna__card-label">Otevírací doba &amp; adresa</span></div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         FOOTER / KONTAKT
+    ════════════════════════════════════════════ -->
+    <footer class="footer" id="kontakt" role="contentinfo">
+      <div class="footer__grid">
+
+        <!-- Brand -->
+        <div>
+          <div class="footer__brand">
+            <img class="footer__logo" src="assets/bilerbin-logo.png" alt="Bilerbin" width="44" height="44" loading="lazy"/>
+            <span class="footer__brand-name">Bilerbin</span>
+          </div>
+          <p class="footer__tagline">Bylinkové sirupy, džemy a malá kavárna v podhůří Orlických hor.</p>
+        </div>
+
+        <!-- Address & opening hours -->
+        <div>
+          <span class="footer__head">Adresa kavárny</span>
+          <div class="footer__body">
+            Kozinova 71<br/>
+            563 01 Lanškroun
+          </div>
+          <span class="footer__head">Otevírací doba</span>
+          <div class="footer__body">
+            Po–Pá 9:00 – 17:00<br/>
+            So 9:00 – 12:00
+          </div>
+        </div>
+
+        <!-- Contact & social -->
+        <div>
+          <span class="footer__head">Kontakt</span>
+          <div class="footer__body">
+            <b>Mgr. Helena Bilerová, PhD.</b><br/>
+            <a href="tel:+420608726323">+420 608 726 323</a><br/>
+            <a href="mailto:helena@bilerbin.cz">helena@bilerbin.cz</a>
+          </div>
+          <span class="footer__head">Sledujte nás</span>
+          <nav class="footer__social" aria-label="Sociální sítě">
+            <a href="https://www.instagram.com/bilerbin/" class="footer__social-btn" aria-label="Instagram" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4.5"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/bilerbin" class="footer__social-btn" aria-label="Facebook" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+          </nav>
+        </div>
+
+        <!-- CTA actions -->
+        <div>
+          <span class="footer__head">Začněte hned</span>
+          <div class="footer__actions">
+            <a href="#" class="btn btn--filled">Objednávka</a>
+            <a href="#" class="btn btn--ghost">Spolupráce</a>
+          </div>
+        </div>
+
+      </div>
+      <div class="footer__bottom">
+        © 2026 — Copyright Bilerbin
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Fixed side nav — sits ABOVE all sections (direct body child so its
+       z-index isn't trapped inside a section's stacking context). -->
+  <nav class="about__nav" id="aboutNav" aria-label="Navigace stránkou">
+    <a href="#o-nas" onclick="event.preventDefault();var t=0,e=document.getElementById('about-title');while(e){t+=e.offsetTop;e=e.offsetParent;}window.scrollTo({top:t-20,behavior:'smooth'})">O nás</a>
+    <a href="#produkty">Produkty</a>
+    <a href="#kavarna">Kavárna</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+
+  <!-- Dots outside .products so JS transform on the section doesn't break position:fixed. -->
+  <div class="products__dots" id="prodDots" role="group" aria-label="Produkty"></div>
+
+  <script>
+  // ── Background video: load via blob to avoid range-request issues ──────
+  (function () {
+    var vid = document.querySelector('.bgvideo__media');
+    if (!vid) return;
+    var url = vid.getAttribute('data-src');
+    fetch(url).then(function (r) { return r.blob(); }).then(function (b) {
+      vid.src = URL.createObjectURL(b);
+      vid.play().catch(function () {});
+    }).catch(function () {
+      vid.src = url;
+      vid.play().catch(function () {});
+    });
+  })();
+
+  // ── Parallax + scroll spy ───────────────────────────────────────────────
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = Array.prototype.slice.call(document.querySelectorAll('[data-px]'));
+    var heroInner = document.getElementById('heroInner');
+    var scrollcue    = document.getElementById('scrollcue');
+    var aboutCue     = document.getElementById('aboutCue');
+    var bgvideo      = document.querySelector('.bgvideo');
+    var kavarnaSecBg = document.getElementById('kavarna');
+
+    // About nav: reveal + scroll-spy
+    var aboutNav = document.getElementById('aboutNav');
+    var aboutSection = document.getElementById('o-nas');
+    var navLinks = Array.prototype.slice.call(
+      aboutNav ? aboutNav.querySelectorAll('a:not(.sidenav__cta)') : []
+    );
+
+    // Measure each element's document-space center (transform cleared first).
+    function measure() {
+      els.forEach(function (el) { el.style.transform = ''; });
+      var sy = window.scrollY;
+      els.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        el._mid = r.top + sy + r.height / 2;
+        el._k = parseFloat(el.getAttribute('data-px')) || 0;
+        el._cubic = !!(el.closest && el.closest('.about__inner'));
+      });
+      // Cache absolute document top of products section (chain walk — ignores transforms)
+      if (prodsSec) {
+        _prodDocTop = 0;
+        var _e = prodsSec;
+        while (_e) { _prodDocTop += _e.offsetTop; _e = _e.offsetParent; }
+      }
+    }
+
+    function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
+
+    function update() {
+      var sy = window.scrollY;
+      var vh = window.innerHeight;
+      var mid = sy + vh / 2;
+      if (!reduce) {
+        els.forEach(function (el) {
+          var delta = el._mid - mid;
+          if (el._cubic) {
+            var half = vh * 0.5 || 1;
+            var n = delta / half;
+            n = n > 1 ? 1 : (n < -1 ? -1 : n);
+            var eased = 0.16 * n + 0.84 * n * n * n;
+            el.style.transform = 'translate3d(0,' + (el._k * half * eased) + 'px,0)';
+          } else {
+            el.style.transform = 'translate3d(0,' + (el._k * delta) + 'px,0)';
+          }
+        });
+        if (heroInner) heroInner.style.opacity = clamp(1 - sy / (vh * 0.85), 0, 1);
+        if (scrollcue) scrollcue.style.opacity = clamp(1 - sy / (vh * 0.4), 0, 1);
+        if (aboutCue && prodsSec) {
+          aboutCue.style.opacity = clamp(1 - (sy - (prodsSec.offsetTop - vh)) / (vh * 0.45), 0, 1);
+        }
+      }
+      spyNav(sy, vh);
+      syncDots(sy, vh);
+    }
+
+    // Dot indicator behaviour:
+    // • sy < P      → dots anchored to carousel bottom, off-screen below (scrolls with page)
+    // • sy = P      → dots arrive at natural viewport-bottom position (buffer begins)
+    // • sy > P      → buffer zone: dots drift slowly upward
+    var dotsEl   = document.getElementById('prodDots');
+    var prodsSec = document.getElementById('produkty');
+    var _prodDocTop = 0;
+    function syncDots(sy, vh) {
+      if (!dotsEl || !prodsSec) return;
+      var P = _prodDocTop;
+      dotsEl.classList.toggle('is-visible', sy >= P - 200);
+      if (sy < P) {
+        // Before buffer: keep dots tethered to carousel bottom (same scroll pace as page)
+        dotsEl.style.transform = 'translateY(' + (P - sy) + 'px)';
+      } else {
+        // Buffer zone: drift slowly upward from natural position
+        var drift = Math.min((sy - P) / (vh * 0.8) * 36, 36);
+        dotsEl.style.transform = drift > 0 ? 'translateY(' + (-drift) + 'px)' : '';
+      }
+    }
+
+    function spyNav(sy, vh) {
+      if (!aboutNav || !aboutSection) return;
+      var show = sy + vh * 0.5 >= aboutSection.offsetTop;
+      aboutNav.classList.toggle('is-visible', show);
+
+      var line = sy + vh * 0.4;
+      var current = null;
+      navLinks.forEach(function (a) {
+        var href = a.getAttribute('href') || '';
+        if (href.charAt(0) !== '#' || href.length < 2) return;
+        var sec = document.getElementById(href.slice(1));
+        if (sec && sec.offsetTop <= line) current = a;
+      });
+      navLinks.forEach(function (a) { a.classList.toggle('active', a === current); });
+    }
+
+    function onScroll() { try { update(); } catch (e) {} }
+
+    var lastY = -1, lastH = -1;
+    function frame() {
+      var y = window.pageYOffset || (document.documentElement && document.documentElement.scrollTop) || 0;
+      var h = window.innerHeight;
+      if (y !== lastY || h !== lastH) {
+        lastY = y; lastH = h;
+        try { update(); } catch (e) {}
+      }
+      window.requestAnimationFrame(frame);
+    }
+
+    function init() {
+      try { measure(); update(); } catch (e) {}
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', function () {
+        try { measure(); update(); } catch (e) {}
+      }, { passive: true });
+      window.addEventListener('load', function () {
+        try { measure(); update(); } catch (e) {}
+      });
+      window.requestAnimationFrame(frame);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+
+  // ── Produkty carousel ──────────────────────────────────────────────────
+  (function () {
+    var DATA = {
+      sirupy: {
+        label: 'Sirupy',
+        items: [
+          {
+            title:   'Kořeněný dýňový sirup',
+            desc:    'Podzimně laděný sirup z domácích dýní, s příměsí citronu a koření pro výraznou chuť. Ideální pro osvěžující limonády, pumpkin spice latte nebo jen jako mlsání na lžičku.',
+            slozeni: 'Složení: dýňový rozvar, třtinový cukr, citronová šťáva, hřebíček, badyán, skořice, muškátový oříšek.',
+            img:     'assets/product-dynovo.jpg'
+          },
+          {
+            title:   'Bezový sirup',
+            desc:    'Jemně aromatický sirup ze bzového kvítí sbíraného v čistém prostředí Orlických hor. Skvělý s minerální vodou, do čaje nebo jako základ ovocné limonády.',
+            slozeni: 'Složení: bezový květ, třtinový cukr, citronová šťáva, kyselina citronová.',
+            img:     'assets/product-rybizova.jpg'
+          }
+        ]
+      },
+      dzemy: {
+        label: 'Džemy',
+        items: [
+          {
+            title:   'Aróniový džem s červeným vínem',
+            desc:    'Aronie z vlastní zahrady, červené víno a špetka skořice. Hluboce ovocný džem k snídani na chleba, k pečenému sýru nebo do palačinek.',
+            slozeni: 'Složení: aronie 65 %, třtinový cukr, červené víno, citronová šťáva, jablečný pektin, skořice.',
+            img:     'assets/product-rybizova.jpg'
+          },
+          {
+            title:   'Dýňovo-jablečný džem',
+            desc:    'Podzimní dýně s jablky, hřebíčkem a skořicí. Originální a výrazná chuť, která potěší k snídani i jako dezert.',
+            slozeni: 'Složení: dýně, jablka, třtinový cukr, citronová šťáva, jablečný pektin, hřebíček, skořice.',
+            img:     'assets/product-dynovo.jpg'
+          }
+        ]
+      }
+    };
+
+    var sel     = document.getElementById('prodSelector');
+    var imgA    = document.getElementById('prodImgA');
+    var imgB    = document.getElementById('prodImgB');
+    var content = document.getElementById('prodContent');
+    var elCat     = document.getElementById('prodCat');
+    var elTitle   = document.getElementById('prodTitle');
+    var elDesc    = document.getElementById('prodDesc');
+    var elSlozeni = document.getElementById('prodSlozeni');
+    var dotsBox = document.getElementById('prodDots');
+    if (!sel || !imgA || !dotsBox) return;
+
+    // Preload every product photo so cross-fades are instant.
+    Object.keys(DATA).forEach(function (k) {
+      DATA[k].items.forEach(function (it) { var im = new Image(); im.src = it.img; });
+    });
+
+    var layers = [imgA, imgB];
+    var active = 0;
+    var cat = 'sirupy';
+    var idx = 0;
+    var firstPaint = true;
+
+    function showImage(src) {
+      var nxt = layers[1 - active];
+      nxt.src = src;
+      nxt.classList.add('is-active');
+      layers[active].classList.remove('is-active');
+      active = 1 - active;
+    }
+
+    function buildDots() {
+      dotsBox.innerHTML = '';
+      DATA[cat].items.forEach(function (_, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', 'Produkt ' + (i + 1));
+        b.addEventListener('click', function () { go(i); });
+        dotsBox.appendChild(b);
+      });
+    }
+
+    function paintDots() {
+      Array.prototype.forEach.call(dotsBox.children, function (b, i) {
+        b.classList.toggle('is-active', i === idx);
+      });
+    }
+
+    function render() {
+      var it = DATA[cat].items[idx];
+      if (firstPaint) {
+        layers[active].src = it.img;
+        elCat.textContent     = DATA[cat].label;
+        elTitle.textContent   = it.title;
+        elDesc.textContent    = it.desc;
+        elSlozeni.textContent = it.slozeni;
+        firstPaint = false;
+      } else {
+        showImage(it.img);
+        content.classList.add('is-swapping');
+        setTimeout(function () {
+          elCat.textContent     = DATA[cat].label;
+          elTitle.textContent   = it.title;
+          elDesc.textContent    = it.desc;
+          elSlozeni.textContent = it.slozeni;
+          content.classList.remove('is-swapping');
+        }, 220);
+      }
+      paintDots();
+    }
+
+    function go(i) {
+      var n = DATA[cat].items.length;
+      idx = (i + n) % n;
+      render();
+    }
+
+    function setCat(next) {
+      if (next === cat) return;
+      cat = next;
+      idx = 0;
+      Array.prototype.forEach.call(sel.children, function (b) {
+        b.classList.toggle('is-active', b.getAttribute('data-cat') === cat);
+        b.setAttribute('aria-selected', b.getAttribute('data-cat') === cat ? 'true' : 'false');
+      });
+      buildDots();
+      render();
+    }
+
+    sel.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-cat]');
+      if (b) setCat(b.getAttribute('data-cat'));
+    });
+    document.getElementById('prodPrev').addEventListener('click', function () { go(idx - 1); });
+    document.getElementById('prodNext').addEventListener('click', function () { go(idx + 1); });
+
+    buildDots();
+    render();
+  })();
+
+  // ── CTA close button ─────────────────────────────────────────────────
+  (function () {
+    var btn = document.getElementById('ctaClose');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      // Scroll to just before the CTA section enters the viewport so the card
+      // visually slides back down and the carousel is fully visible again.
+      var t = 0, e = document.getElementById('zaujalo');
+      while (e) { t += e.offsetTop; e = e.offsetParent; }
+      window.scrollTo({ top: t - window.innerHeight, behavior: 'smooth' });
+    });
+  })();
+
+  // ── Hash-link URL guard ───────────────────────────────────────────────
+  // Prevent any <a href="#…"> from appending a hash to the URL.
+  // Links that already called preventDefault() in an inline onclick (e.g. "O nás")
+  // are skipped via the defaultPrevented check.
+  document.addEventListener('click', function (e) {
+    if (e.defaultPrevented) return;
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    e.preventDefault();
+    var id = a.getAttribute('href').slice(1);
+    if (!id) return;
+    var target = document.getElementById(id);
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // ── CTA exit + products parallax reveal ──────────────────────────────
+  (function () {
+    var prodSec  = document.getElementById('produkty');
+    var ctaSec   = document.getElementById('zaujalo');
+    var ctaInner     = ctaSec ? ctaSec.querySelector('.cta-section__inner') : null;
+    var ctaScrollcue = document.getElementById('ctaScrollcue');
+    var kavarnasSec  = document.getElementById('kavarna');
+    var bgvideoEl    = document.querySelector('.bgvideo');
+    if (!prodSec || !ctaSec || !ctaInner) return;
+
+    var mid = 0;
+
+    function measure() {
+      var rect   = ctaSec.getBoundingClientRect();
+      var absTop = rect.top + (window.scrollY || window.pageYOffset || 0);
+      mid = absTop + ctaSec.offsetHeight / 2 - window.innerHeight / 2;
+    }
+
+    function update() {
+      var sy   = window.scrollY || window.pageYOffset || 0;
+      var half = window.innerHeight / 2;
+      var vh   = window.innerHeight;
+      var t    = (sy - mid) / half;
+      var tc   = t > 0 ? t : 0;
+      var ease = tc * tc;
+      ctaInner.style.transform = 'translateY(' + (-ease * half * 1.0)  + 'px)';
+      prodSec.style.transform  = 'translateY(' + (-ease * half * 0.85) + 'px)';
+
+      // Crossfade: video fades out in sync with carousel exit, revealing cups bg behind it
+      if (bgvideoEl) {
+        bgvideoEl.style.opacity = tc < 0.1 ? 1 : Math.max(0, 1 - (tc - 0.1) * 2);
+      }
+
+      // Kavárna cue: hidden while card sits over it, revealed as card exits upward,
+      // then fades out as the kavárna section enters the viewport.
+      if (ctaScrollcue) {
+        var fadeIn  = Math.max(0, Math.min((t + 0.3) * 4, 1));
+        var fadeOut = 1;
+        if (kavarnasSec) {
+          var kavStart = kavarnasSec.offsetTop - vh;
+          fadeOut = Math.max(0, Math.min(1, 1 - (sy - kavStart) / (vh * 0.4)));
+        }
+        ctaScrollcue.style.opacity   = fadeIn * fadeOut;
+        // 0.75× total window speed from first appearance (t≈−0.3) through full exit
+        ctaScrollcue.style.transform = 'translateY(' + (half * (0.25 * (t + 0.3) - 0.75 * ease)) + 'px)';
+      }
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', function () { measure(); update(); }, { passive: true });
+    window.addEventListener('load',   function () { measure(); update(); });
+    measure(); update();
+  })();
+
+  </script>
+
+
+</body>
+</html>
